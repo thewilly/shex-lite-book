@@ -1,7 +1,7 @@
 # Introduction
 Why to create a language that allows you to validate data instances? We currently live in a world where we generate huge amounts of data every day and in most cases we need a mechanism to ensure that the data we are generating has specific properties or shape.
 
-In order to solve this problem, the language of Shape Expressions (ShEx) was born and it allows to validate RDF instances against schemas.
+In order to solve this problem, the language of Shape Expressions (ShEx) was born and it allows to define schemas that will be used later to validate RDF instances.
 
 So what is ShEx-Lite? ShEx-Lite is still a language, it represents a subset of the complete language and it is fully compatible with original ShEx compiler, but it also adds new functionalities such as automatically generating domain models in different programming languages, automatic schema creation from data in tabular format and a semantic analysis for the schemas.
 
