@@ -1,5 +1,5 @@
 # Introduction
-Why create a language that allows you to validate data instances? We currently live in a world where we generate huge amounts of data every day and in most cases we need a mechanism to ensure that the data we are generating has specific properties or shape.
+Why to create a language that allows you to validate data instances? We currently live in a world where we generate huge amounts of data every day and in most cases we need a mechanism to ensure that the data we are generating has specific properties or shape.
 
 In order to solve this problem, the language of shape expressions was born and it allows to validate RDF instances against schemas.
 
