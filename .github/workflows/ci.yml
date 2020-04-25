@@ -20,6 +20,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
         with:
-          msg: "Hi, some test just fail. Please fix errores before merging."
+          msg: "Hi, some test just fail. Please **fix errores before** merging."
           check_for_duplicate_msg: false  # OPTIONAL
     
