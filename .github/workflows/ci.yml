@@ -1,14 +1,25 @@
 name: comment-on-pr example
-on: pull_request
+on: [push, pull_request]
 jobs:
-  example:
-    name: sample comment
+  tests:
+    name: tests
     runs-on: ubuntu-latest
     steps:
-      - name: comment PR
+      
+      - name: fail test
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.NON_EXISTING_TOKEN }}
+        with:
+          msg: "Check out this message!"
+          check_for_duplicate_msg: true  # OPTIONAL 
+      
+      - name: comment if fail
+        if: "github.event_name == 'pull_request' && failure()"
         uses: unsplash/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
         with:
-          msg: "Check out this message!"
-          check_for_duplicate_msg: true  # OPTIONAL 
+          msg: "Hi, some test just fail. Please fix errores before merging."
+          check_for_duplicate_msg: false  # OPTIONAL
+    
