@@ -1,0 +1,70 @@
+\section{Validating RDF}
+In the previous point we just see that easiest possible mental model for RDF is a graph, and that’s correct. At the end RDF represents a graph. And with the ability of representing and storing data emerges the need to validate that the schema of the graph is correct.
+At the time RDF was introduced, as it was based on XML the usage of XML-Schema. But this was a very esoteric way of doing it. In order to solve this problem in 2017 the book Validating RDF Data \sidecite{gayo2017validating} was published.
+In the book different alternatives for validating RDF are explained under Chapters 3, 4 and 5. But also describes the possible applications of RDF validation in Chapter 6 and finally in Chapter 7 they make an small comparison about RDF validation technologies.
+The most wide used validation technology is Shape Expressions even though the W3C standard points to SHACL which is was based in the Shape Expressions: An RDF validation and transformation language \sidecite{prud2014shape} paper. That is the main reason why this technology will be the one that we will explore deeply.
+
+\subsection{Shape Expressions} \todo{Link references.}
+As defined in [2] Shape Expressions (ShEx) is a schema language for describing RDF graphs structures. ShEx was originally developed in late 2013 to provide a human-readable syntax for OSLC Resource Shapes. It added disjunctions, so it was more expressive than Resource Shapes. Tokens in the language were adopted from Turtle and SPARQL with tokens for grouping, repetition and wildcards from regular expression and RelaxNG Compact Syntax [16]. The language was described in a paper [1] and codified in a June 2014 W3C member submission [17] which included a primer and a semantics specification. This was later deemed “ShEx 1.0”.
+The W3C Data Shapes Working group started in September 2014 and quickly coalesced into two groups: the ShEx camp and the SHACL camp. In 2016, the ShEx camp split from the Data Shapes Working Group to form a ShEx Community Group (CG). In April of 2017, the ShEx CG released ShEx 2 with a primer, a semantic specification and a test-suite with implementation reports.
+As of publication, the ShEx Community Group was starting work on ShEx 2.1 to add features like value comparison and unique keys. See the ShEx Homepage \url{http://shex.io/} for the state of the art in ShEx. A collection of ShEx schemas has also been started at \url{https://github.com/shexSpec/schemas}.
+
+\begin{figure}[hb]
+\begin{lstlisting}
+PREFIX :       <http://example.org/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:User {
+  schema:name          xsd:string  ;
+  schema:birthDate     xsd:date?  ;
+  schema:gender        [ schema:Male schema:Female ] OR xsd:string ;
+  schema:knows         IRI @:User*
+}
+\end{lstlisting}
+\caption[Shape Expression Example]{Shape Expression Example. This example describes a shape expression that describes a user as a node that has one name of type string, an optional bithd date of type date, one gender of type Male, Female or free string and a set between 0 and infinite of other users represented by the knows property.}
+\labfig{shape-expr-ex}
+\end{figure}
+
+\subsubsection{Use of ShEx}
+Strictly speaking, a ShEx schema defines a set of graphs. This can be used for many purposes, including communicating data structures associated with some process or interface, generating or validating data, or driving user interface generation and navigation. At the core of all of these use cases is the notion of conformance with schema. Even one is using ShEx to create forms, the goal is to accept and present data which is valid with respect to a schema.
+ShEx has several serialization formats:
+
+\begin{itemize}
+	\item a concise, human-readable compact syntax (ShExC);
+	\item a JSON-LD syntax (ShExJ) which serves as an abstract syntax; and
+	\item an RDF representation (ShExR) derived from the JSON-LD syntax.
+\end{itemize}
+
+These are all isomorphic and most implementations can map from one to another.
+Tools that derive schemas by inspection or translate them from other schema languages typically generate ShExJ. Interactions with users, e.g., in specifications are almost always in the compact syntax ShExC. As a practical example, in HL7 FHIR, ShExJ schemas are automatically generated from other formats, and presented to the end user using compact syntax. See Section 6.2.3 for more details.
+ShExR allows to use RDF tools to manage schemas, e.g., doing a SPARQL query to find out whether an organization is using dc:creator with a string, a foaf:Person, or even whether an organization is consistent about it.
+
+\subsubsection{ShEx Implementations} \todo{Check links.}
+At the time of this writing, we are aware of the following implementations of ShEx.
+
+\begin{itemize}
+	\item shex.js for Javascript/N3.js (Eric Prud’hommeaux) \url{https://github.com/shexSpec/shex.js/};
+	\item Shaclex for Scala/Jena (Jose Emilio Labra Gayo) \url{https://github.com/labra/shaclex/};
+	\item shex.rb for Ruby/RDF.rb (Gregg Kellogg) \url{https://github.com/ruby-rdf/shex};
+	\item Java ShEx for Java/Jena (Iovka Boneva/University of Lille) \url{https://gforge.inria.fr/projects/shex-impl/}; and
+	\item ShExkell for Haskell (Sergio Iván Franco and Weso Research Group) \url{https://github.com/weso/shexkell}.
+\end{itemize}
+
+There are also several online demos and tools that can be used to experiment with ShEx.
+
+\begin{itemize}
+	\item shex.js (http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html);
+	\item Shaclex (http://shaclex.herokuapp.com); and
+	\item ShExValidata (for ShEx 1.0) (https://www.w3.org/2015/03/ShExValidata/).
+\end{itemize}
+
+\subsection{Other Technologies}
+As other validation technologies we will just explore the existence of them as it is very interesting to know how other tools approach the same issue.
+
+\subsubsection{SHACL}
+Also in [2], Chapter 5, it is fully explained that Shapes Constraint Language (SHACL) has been developed by the W3C RDF Data Shapes Working Group, which was chartered in 2014 with the goal to “produce a language for defining structural constraints on RDF graphs [18].”
+The main difference that made us choose ShEx over SHACL are that ShEx emphasized human readability, with a compact grammar that follows traditional language design principles and a compact syntax evolved from Turtle.
+
+\subsubsection{JSON Schema}
+JSON Schema born as a way to validate JSON-LD, and as turtle and RDF can be serialized as JSON-LD it is usual to think that JSON Schema can validate RDF data, but this is not fully correct. And the reason is that the serialization of RDF data in to JSON-LD is not deterministic, that means that a single schema might have multiple serializations, which interferes with the validation as you cannot define a relative schema.

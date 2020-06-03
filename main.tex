@@ -112,14 +112,14 @@
 
 \lowertitleback{
 	Final Degree Project presented on July 2020 at the School of Software Engineering, Oviedo University. All the source code related to the implementation explored during this book is available at \url{github.com/weso/shex-lite}.
-	
+
 	\medskip
-	
+
 	\textbf{Copyright}\\
 	All rights reserved. This project or any portion may not be reproduced or used in any manner without the express quotation to the original author.
-	
+
 	\medskip
-	
+
 	\textbf{Directors} \\
 	Dr. Jose Emilio Labra Gayo\\Daniel Fernández Álvarez
 }
@@ -192,23 +192,13 @@
 \mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
 \setchapterstyle{kao} % Choose the default chapter heading style
 
-\input{chapters/introduction.tex}
-\input{chapters/theoretical-background.tex}
-\input{chapters/textnotes.tex}
-\input{chapters/figsntabs.tex}
-\input{chapters/references.tex}
-
-\pagelayout{wide} % No margins
-\addpart{Design and Additional Features}
-\pagelayout{margin} % Restore margins
-
-\input{chapters/layout.tex}
-\input{chapters/mathematics.tex}
+\input{chapters/ch01/ch-01-introduction.tex}
+\input{chapters/ch02/ch-02-theoretical-background.tex}
 
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
 \pagelayout{wide} % No margins
-\addpart{Appendix}
+\addpart{Annexes}
 \pagelayout{margin} % Restore margins
 
 \input{chapters/appendix.tex}
@@ -253,10 +243,10 @@
 	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
 	\begin{tabular}{l l @{\hspace*{3em}} l l}
 		\toprule
-		Character & Name & Character & Name \\ 
+		Character & Name & Character & Name \\
 		\midrule
 		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
-		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\ 
+		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\
 		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
 		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
 		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
