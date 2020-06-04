@@ -75,13 +75,13 @@
 \subject{Final Degree Project}
 
 \title[ShEx-Lite]{ShEx-Lite}
-\subtitle{Automatic generation of domain object models through a subset of a shape expressions language.}
+\subtitle{Automatic generation of domain object models through a subset of a Shape Expressions Compact Syntax.}
 
 \author[Guillermo Facundo Colunga]{Guillermo Facundo Colunga}
 
 \date{\today}
 
-\publishers{University of Oviedo}
+\publishers{School of Computer Science\\University of Oviedo}
 
 %----------------------------------------------------------------------------------------
 
@@ -92,15 +92,7 @@
 %----------------------------------------------------------------------------------------
 
 %\makeatletter
-%\extratitle{
-%	% In the title page, the title is vspaced by 9.5\baselineskip
-%	\vspace*{9\baselineskip}
-%	\vspace*{\parskip}
-%	\begin{center}
-%		% In the title page, \huge is set after the komafont for title
-%		\usekomafont{title}\huge\@title
-%	\end{center}
-%}
+\includepdf{images/disertation-official-page.pdf}
 %\makeatother
 
 %----------------------------------------------------------------------------------------
@@ -142,7 +134,7 @@
 
 % If twoside=false, \uppertitleback and \lowertitleback are not printed
 % To overcome this issue, we set twoside=semi just before printing the title pages, and set it back to false just after the title pages
-\KOMAoptions{twoside=semi}
+\KOMAoptions{twoside=false} % default as 'semi' but turned to false so the first page is printed right after the cover, the cover is intended to be prented separetly.
 \maketitle
 \KOMAoptions{twoside=false}
 
