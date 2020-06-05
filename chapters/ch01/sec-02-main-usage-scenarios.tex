@@ -1,9 +1,20 @@
 \section{Main usage scenarios}\labsec{ch01-main-usage-scenarios}
 
-\refsec{ch01-motivation} introduced some profiles that might benefit from using ShEx-Lite. We can find an example of this profiles in the Wikidata Community. Wikidata is formed by a multidisciplinar community whose aim is to introduce RDF data in to an open knowledge base used by other companies like Google Search. The only problem is that the introduced RDF data needs validation to ensure a minimum data quality, but the profiles that introduce the data, usually, are domain experts whose knowledge about computer science is limited. \todo{Extender ejemplo wikidata.}
+\refsec{ch01-motivation} introduced some profiles that benefit from using ShEx-Lite.
 
-Besides to this, a common problem is that some companies like Wikidata or even Universities use ShEx to define the constraints of the RDF data that they own. But then, when developing applications with object oriented languages they need to translate those schemas in to a domain model to support their data. Furthermore if the Shape Expressions used to validate their data changes for some reason they need to rewrite that domain model in the OOL again. \todo{Adornar un poco.}
+\subsection{Non-technical users}
+We can find an example of this profiles in the Wikidata Community. Wikidata is a free and open knowledge base that can be read and edited by both humans and machines and it acts as central storage for the structured data of its Wikimedia sister projects including Wikipedia, Wikivoyage, Wiktionary, Wikisource, and others. This is very important as even Google Search uses this knowledge base.
 
-Finally, from a ShEx developer point of view sometimes appears the need to try new features in a small playground that allow easy an fast testing, for example a feature that appeared after this project was implemented is to automatically generate documentation webpages for the schemas defined in ShEx, but the first target of this feature won’t be ShEx, will be ShEx-Lite as it is perfect for he proof of concept.
+But the most important point about Wikidata is its community, who is formed by multidisciplinar profiles whose aim is to introduce data in to an open knowledge base. This data is in RDF format in order to solve the 3Vs problem seen in \refsec{ch01-motivation} but not all of the profiles who introduce data have technical skills, they are what is called domain experts.
 
-\todo{Enumerar tipos de erramientas que se beneficiarían.}
+For example an archaeologist might be the greatest expert on its domain without having any RDF technical skill and its knowlegde is very valuable for the Wikidata knowlegde base. So Wikidata performs the validation of the RDF introduced by the user to ensure a minimum data quality and if the validation is not sucessful it notifies the user about possible solutions. Currently this is done with Shape Expressions but in order to improve the error messages and a simplify the validation language we propose ShEx-Lite. \todo{Quizás muy directo?}
+
+\subsection{Companies or organizations}
+Companies and organizations also benefit from ShEx-Lite, they have requested features that allow to sincronise their RDF contraint schemas and the domain object models that they use in their applications. The perfect example of this is the Hércules\sidecite{hercules-um} European project whose aim is to create a management system based on linked data for the research at Spanish Universities. In this project an ontology is created by means of Shape Expressions that model the constraints that the RDF instances of the ontology must meet. After, they need to translate this biug schema in to an object domain model that can be invoked from the java applications they are developing.
+
+The feature requested is called "automatic generation of domain object models from shape expressions" and it is fully covered by ShEx-Lite and currently the Hércules project is using it.
+
+\subsection{ShEx developers}
+Another very interested profile in ShEx-Lite are the ShEx developers who have the need to implement new features in the ShEx environment but they find that this environment tends to be very complicated and the learning curve is difficult sometimes. For example there is a parallel project of creating online interactive documentation from the comments in the source code of the shape expressions. This is a very interesting project for the ShEx community and thanks to ShEx-Lite the project is now being implemented as a proof of concept.
+
+The benefits of ShEx-Lite are not only limitted to the developers of the language itselft but also to the developers of the ShEx ecosystem tools. For example ShEx IDEs benefit from the API architecture of the ShEx-Lite compiler as they now can use incremental compilation or use only the sintax or semantic valdiation without the waste of time of generating code.

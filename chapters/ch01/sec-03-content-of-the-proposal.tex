@@ -8,7 +8,7 @@ After \refsec{ch01-motivation} and \refsec{ch01-main-usage-scenarios} this secti
 \end{description}
 
 \subsection{ShEx-Lite Compiler}
-This compiler works over a defined subset of the Shape Expressions Compact Syntax, defined at \sidecite{shexc} that allows expressing basic constraints. It is implemented with the paradigm "compiler as a library" and it is able to parse a schema, analyze it and generate the syntactic and semantic errors that the schema contains.
+This compiler works over a defined subset of the Shape Expressions Compact Syntax, defined at \sidecite{shexc} that allows expressing basic constraints. It is implemented with the paradigm "compiler as a library" because the influence of modern compilers like Swift, Rust or Roslyn \sidecite{swift, rustc,dotNet} and it is able to parse a schema, analyze it and generate the syntactic and semantic errors that the schema contains.
 
 The ShEx-Lite Compiler is composed of the following components:
 
@@ -24,6 +24,6 @@ The semantic analysis covers the validation and transformation of the AST in to 
 \subsection{Automatic generation of domain object models}
 But by far, the biggest difference with existing tools, is the automatic generation of domain object models from the schemas defined.
 
-The idea behind this is to enhance interoperability between object oriented languages \sidecite[-40pt]{oopl} and RDF systems. An example of this is the European Project ASIO Hércules \sidecite[-20pt]{hercules-um}, where the automatic transformation of schemas in to POJOs \sidecite{pojo} is the tool that joins the Semantic Architecture and the Ontology Infrastructure.
+The idea behind this is to enhance interoperability between object oriented languages \sidecite[-15pt]{oopl} and RDF systems. An example of this is the European Project ASIO Hércules \sidecite{hercules-um}, where the automatic transformation of schemas in to POJOs \sidecite{pojo} is the tool that joins the Semantic Architecture and the Ontology Infrastructure.
 
 Also it is important to remark here that we are perfectly conscious about the fact that not every object oriented language allows to model exactly the same restrictions as types differ, therefore each OOL needs to validate or map the schema to a representation on the language whose meaning is the same, that is create the image of the schema in the corresponding language.
