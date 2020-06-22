@@ -1,20 +1,19 @@
 \section{Objectives}
 \labsec{ch04-objectives}
 
-The objectives are those results that we want to achieve or features that we want the compiler to have once it is implemented. The main objectives that we have identified for the compiler are the following ones:
+The main aim of this project is sumarize on its title, the implementation if a system that can
+automatically transform shape expressions, expressed in a ShEx subset syntax, in to multiple
+object-oriented-languages domain models.
+
+Therefore, in order to meet that main goal we will need to:
 \begin{itemize}
-    \item Provide the following tools from the compiler:
-    \begin{itemize}
-        \item Get the ST (syntax tree) from a source file.
-        \item Get the AST (abstract syntax tree) from a ST.
-        \item Get the SIL (ShEx-Lite Intermediate Language) from an AST.
-        \item Generate sources in a given OOL from a SIL.
-        \item For all the previos functionalities detect and inform or any event considered by the compiler as an error or warning.
-    \end{itemize}
-    \item Natively support, at least, Java and Python as target languages for the code generation.
-    \item Allow the previous tools to be called from CLI.
-    \item Allow the previous tools to be encapsulated in other programs written in any Java based language.
-    \item Include examples of how the compiler works with a representative set of shape expressions.
+    \item \textbf{define a syntax based on a subset of ShEx},
+    \item \textbf{design and implement a compiler for that syntax}
+\end{itemize}
+and add a feature to
+\begin{itemize}
+    \item \textbf{allow the translation from shapes to object-oriented-languages domain models}.
 \end{itemize}
 
-The ShEx-Lite compiler is mean to be a compiler for a syntax based on a subset of the Shape Expressions Compact Syntax. The compiler is aimed at people with a few technical skills that need to write schemas to validate RDF but don’t want to learn the full ShEx Language, but also to more experienced developers that would like to automatically generate domain object models and test new functionalities without the drawback of implementing them on a production system.
+Now that we add more detail to our main aim by splitting it into three goals we can perform the individual
+analysis for each one.

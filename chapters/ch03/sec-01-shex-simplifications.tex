@@ -3,12 +3,29 @@
 
 \subsection{The \textbf{S} language}
 
-In 2019 at \sidecite{rdf-challenges} was defined a language called \textbf{S} as a simple abstract language that captures both the essence of ShEx and SHACL. This is very relevant as this language is intended to be the input of a theoretical abstract machine that will be used for graph validation for both ShEx and SHACL. Also in the same paper the authors carefully describe the algorithm for the translation from ShEx to S and from SHACL to S.
+In 2019 at \sidecite{rdf-challenges} was defined a language called \textbf{S} as a simple abstract
+language that captures both the essence of ShEx and SHACL. This is very relevant as this language
+is intended to be the input of a theoretical abstract machine that will be used for graph validation
+for both ShEx and SHACL. Also in the same paper the authors carefully describe the algorithm for the
+translation from ShEx to S and from SHACL to S.
 
-Although the theoretical abstract machine has not been implemented yet the intention of the WESO Research Group, where this S language was defined, is to devote more efforts in to this project during the 2021.
+Although the theoretical abstract machine has not been implemented yet the intention of the WESO
+Research Group, where this S language was defined, is to devote more efforts in to this project
+during the 2021.
 
-Other definition of an abstract language based on uniform schemas can be found at \sidecite{iovka-auto-shex-shacl}. This language is focused on schemas inference rather on validation, but needs to be taken into account as they also perform an abstraction of both ShEx and SHACL.
+Other definition of an abstract language based on uniform schemas can be found at \sidecite{iovka-auto-shex-shacl}.
+This language is focused on schemas inference rather on validation, but needs to be taken
+into account as they also perform an abstraction of both ShEx and SHACL.
 
-And to the best of our knowledge and after the research process carried out for this project no other language based on a subset of Shape Expressions has been designed nor implemented yet.
+\subsection{ShExJ Micro Spec}
+Recently the Doublin Core Team\sidenote{\url{https://dublincore.org/}} is working into an
+specification that allows to define Shape Expressions in tabular formats. For this specification
+they propose a simplification of the Shape Expressions JSON syntax that allows to define an
+schema as a set of simple triple contratints. This specification is not official and has
+not been validated yet but it is very importat for our work as we will also work in a
+simplification of a syntax of ShEx.
 
-\subsection{ShEx Micro Spec}
+\bigskip
+
+And to the best of our knowledge and after the research process carried out for this
+project no other language based on a subset of Shape Expressions has been designed nor implemented yet.
