@@ -1,2 +1,74 @@
 \section{ShEx-Lite Language Design}
 \labsec{ch05-language-design}
+
+In the previous section we just seen the analysis of the requirements for the
+syntax that we will develop in next chapter, here, in this section, we will
+design the syntax from an abstract point of view.
+
+The requirements alredy left preaty clear the functionalities of the language,
+if must allow to \textbf{define prefixes}, \textbf{define a base}, \textbf{define the start shape expression}
+and to \textbf{define shape expressions}. Therefore our languge will be formed by a set of definitions.
+
+It is very important aso, in order to meet the quality attributes that our syntax is based on Shape Expressions
+Compact Syntax. That means if our syntax is an extrictly subset of \texttt{ShExC} the systems that already
+work with ShEx will work with ShEx-Lite. This has been disccused in \sidenote{\url{https://github.com/weso/shex-lite-evolution/pull/1}}.
+
+\subsection{Prefix Definition}
+The prefix definition will follow the same specification as in ShEx, that means that will assign an IRI to an String Identifier.
+In ShEx it is allowed to re-assign a new IRI value to an existing identifier prefix \textit{(also called prefix overrdide)},
+but in ShEx-Lite, as it is horiented to users with lower technical skills, this is not allowed.
+This way we improve the safety of the language and its discussion can be found in \sidenote{\url{https://github.com/weso/shex-lite-evolution/pull/16}}.
+
+In \texttt{ShExC} the prefix definition is representented by the keyword \texttt{prefix} followed by the string identifier, which can
+be empty, then the colon symbol and finally the IRI. Therefore the production would be:
+
+\begin{center}
+    \begin{verbatim}
+PrefixDefinition :: 'PREFIX'  ID ':' IRI
+    \end{verbatim}
+\end{center}
+
+\subsection{Base Definition}
+The base definition defines the IRI that will be use as base for other relative IRIs that could appear in the schema. By default the base
+already contains an IRI that points to a default location and it is allowed to declare only one base definition in the schema. This is also done
+by safety and its discussion can be found in \sidenote{\url{https://github.com/weso/shex-lite-evolution/pull/16}}.
+
+Also we will inherit the \texttt{ShExC} syntax and the base definition will have the following production:
+
+\begin{center}
+    \begin{verbatim}
+BaseDefinition :: 'BASE' IRI
+    \end{verbatim}
+\end{center}
+
+\subsection{Start Definition}
+The start definition does not have any implication within an scheme, its functionality is to indicate at validation time the default shape expression to use
+if no other shapoe is indicated. As a difference with ShEx and in order to increase language safety we do not allow the start declaration to appear more than once.
+This is an open discussion in ShEx community, the start shape expression that it is used is only the last one defined and the definition has no functionality during
+compilation therefore if two start definitions appear the first one is like it never existed.
+
+We will also folloe the \texttt{ShExC} syntax for this element and its production will be:
+
+\begin{center}
+    \begin{verbatim}
+StartDefinition :: 'START' '=' ShapeReference
+    \end{verbatim}
+\end{center}
+
+The \textit{ShapeDefinition} production also includes another rule that is the \textit{ShapeReference}. This rule production is not important at thi point,
+but the important part is that it represents a reference to a shape expression definition that must be defined within the schema, at any possition.
+
+\subsection{Shape Expression Definition}
+The final element of the definitions is the Shape Definition, a shape definition is defined as a set of triple expressions, where each triple
+expression is formed by the \textit{property}, the \textit{constraint} and the \textit{cardinality}. In ShEx this element definition is much more
+complex, allowing logical operation between triple expressions and even assignments. In our case we simplified this element to cover the needs described
+during the analysis. Our production for Shape Definition would be:
+
+\begin{center}
+    \begin{verbatim}
+ShapeDefinition :: ShapeIdentifier '{' TripleExpression+ '}'
+    \end{verbatim}
+\end{center}
+
+Notice the \textit{ShapeDefinition} contains a \textit{ShapeIdentifier}, this identifier is another prodsuction and at the end it is an IRI, it must
+be unique in the schema and it stores the non-empty set \textit{(represented by the + symbol)} of triple expressions.
