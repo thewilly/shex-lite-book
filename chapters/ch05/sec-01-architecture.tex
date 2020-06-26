@@ -8,13 +8,13 @@ systems.
 
 All of these elements simplified noticeably the architecture of the system. \reffig{shex-lite-high-level-arch} sumarizes the high level architecture of the ShEx-Lite compiler. Notice that the elements that appear here are the same that where identified in \refch{compiler-analysis}.
 
-\begin{figure}[hb]
+\begin{figure}[h]
     \includegraphics{shex-lite-high-level-arch.png}
     \caption[High level view of the ShEx-Lite system]{High level view of the ShEx-Lite system. This figure shows how the CLI is build on top of the API which depends on the compiler implementation.}
     \labfig{shex-lite-high-level-arch}
 \end{figure}
 
-\begin{figure}[hb]
+\begin{figure}[h]
     \includegraphics{shex-lite-components.png}
     \caption[Components diagram for ShEx-Lite Compiler]{Components diagram for ShEx-Lite Compiler.}
     \labfig{shex-lite-components}
@@ -37,7 +37,7 @@ The compiler contains the implementation for the API interfaces. Its task is to 
 functionality to the designed interfaces, to do so it implements different programming
 patterns.
 
-\begin{figure}[hb]
+\begin{figure}[h]
     \includegraphics{shex-lite-process-01.png}
     \caption[High level view of the compiler flow]{High level view of the compiler flow.}
     \labfig{shex-lite-process-01}
@@ -66,7 +66,7 @@ we can already extract that the compiler will have at least the following struct
     \item \textbf{IR:} Contains the generated Intermediate Representation. The IR is the sources that represent the generated domain object model, it contains those sources and all the compilation information. 
 \end{itemize}
 
-\begin{figure*}[hb]
+\begin{figure*}[h]
     \includegraphics{shex-lite-process-02.png}
     \caption[Low level view of the compiler flow, grouped by compiler-action]{Low level view of the compiler flow, grouped by compiler-action.}
     \labfig{shex-lite-process-02}
