@@ -1,0 +1,62 @@
+
+\documentclass[open=any]{SPhdThesis}
+
+% Packages.
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{todonotes}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+
+% Environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{partconclusion}{Partial Conclusion}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{researchquestion}{Research Question}
+\newtheorem{scenario}{Scenario}
+
+% PDF and title properties.
+\SgSetTitle{Automatic generation of multi-language object domain models through a Shape Expressions subset}
+\SgSetAuthor{Guillermo Facundo Colunga}
+\SgSetAuthorDegrees{}
+\SgSetYear{2020}
+\SgSetDegree{Software Engineer}
+\SgSetDepartment{Department of Computer Science}
+\SgSetUniversity{University of Oviedo}
+\SgSetDeclarationDate{July 2020}
+
+% The document.
+\begin{document}
+	\begin{frontmatter}
+		\SgAddTitle%
+		%\SgAddDeclaration%
+		\input{acknowledgments}%
+		\input{abstract}%
+		\SgAddToc%  Table of contents.
+		\SgAddLof%  List of figures.
+		\SgAddLot%  List of tables.
+		%\SgAddLoa%  List of algorithms.
+	\end{frontmatter}
+   
+	\input{chapters/introduction.tex}
+	\input{chapters/theoretical-background.tex}
+	\input{chapters/related-work.tex}
+
+	\part{Enhancing Error and Warning Detection and Emition on ShEx}
+	\input{chapters/current-analyzers-analysis.tex}
+	\input{chapters/proposed-analyzer.tex}
+
+	\part{Translating ShEx Schemas to Object Domain Models}
+	\input{chapters/odm-translate.tex}
+	\input{chapters/proposed-system.tex}
+
+	\part{Project Sinthesis}
+	\input{chapters/evauation-of-results.tex}
+	\input{chapters/planning-and-budget.tex}
+	\input{chapters/conclusions.tex}
+
+	\SgIncludeBib{biblio}
+\end{document}
