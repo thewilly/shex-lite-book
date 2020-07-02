@@ -8,6 +8,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{amsthm}
+\usepackage[titletoc]{appendix}
 
 % Environments
 \newtheorem{theorem}{Theorem}[section]
@@ -57,6 +58,20 @@
 	\input{chapters/evauation-of-results.tex}
 	\input{chapters/planning-and-budget.tex}
 	\input{chapters/conclusions.tex}
+
+	\part{Annexes and References}
+	\begin{appendices}
+		\chapter{ShEx Micro Language}
+		\section{Syntax Specification}
+		\section{Lexical Specification}
+		\chapter{ShEx-Lite Antlr Grammar}
+		\section{Syntax Specification}
+		\section{Lexical Specification}
+		\chapter{Project Communications}
+		\section{Open Source Community}
+		\section{Scientific Disclosure}
+		\section{Dublin Core Meetings}
+	\end{appendices}
 
 	\SgIncludeBib{biblio}
 \end{document}
