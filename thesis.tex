@@ -9,6 +9,7 @@
 \usepackage[english]{babel}
 \usepackage{amsthm}
 \usepackage[titletoc]{appendix}
+\usepackage{pdfpages}
 
 % Environments
 \newtheorem{theorem}{Theorem}[section]
@@ -61,16 +62,9 @@
 
 	\part{Annexes and References}
 	\begin{appendices}
-		\chapter{ShEx Micro Language}
-		\section{Syntax Specification}
-		\section{Lexical Specification}
-		\chapter{ShEx-Lite Antlr Grammar}
-		\section{Syntax Specification}
-		\section{Lexical Specification}
-		\chapter{Project Communications}
-		\section{Open Source Community}
-		\section{Scientific Disclosure}
-		\section{Dublin Core Meetings}
+		\input{appendices/shex-micro-language.tex}
+		\input{appendices/shex-lite-antlr-grammar.tex}
+		\input{appendices/project-comunications.tex}
 	\end{appendices}
 
 	\SgIncludeBib{biblio}

@@ -127,7 +127,7 @@ that a notice has been found that must be passed on to the user, \cref{fig:sin-e
 \begin{figure}
     \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\scriptsize]
 warning[W005]: missing semicolon
---> ../../test/assets/input_correct_java_schema_user_car_1.shexl:8:23
+--> shape_with_warning_cause_semicolon.shexl:8:23
     |
 8   | :knows      @:User *
     |                      ^ semicolons are not compulsory in the last triple constraint,
@@ -171,17 +171,147 @@ For this purpose, the semantic analizer defines the visitor pattern on the nodes
 analysis is done with a tree visiting implementation. Some of the 
 
 \section{Sintactic and Semantic Error and Warnings Detected}
+With the solution proposed in the previous section, our system is capable of detecting and reporting multiple syntactic
+and / or semantic errors. In this section we will analyze the rules that generate each type of event and the different
+error messages produced for each of them.
 
 \subsection{Not trailing semicolon at last triple constraint}
+To detect when the semicolon is missing in the last triple constraint of a shape definition, the rule used is very simple.
+Find the last node in the triple constraints list of a shape definition. And once this node is found, it is searched whether or
+not it contains the final token character that corresponds to a semicolon. If it does not have it, a warning message is generated,
+indicating the position through file, line, column and context, which is sent to the compilation event manager, which in turn gives
+the corresponding format to print the message. \cref{fig:sin-err-example} shows an example of this message.
 
 \subsection{Prefix not defined}
+These types of events happen when we use a referecnai to a prefix and this has not been defined in the scope of the schema.
+In the event that this happens we have an error that we cannot recover from since we cannot associate the reference to anything.
+
+In order to detect this assumption, all the prefix definitions have to be traversed previously and for each one of them,
+a record will have to be created in a symbol table where it is indexed by the label and a reference to the definition node
+is added. All types of type reference to prefix can then be accessed and for each one it is verified that the label exists
+in the symbol table and then a pointer to the corresponding definition node is added to the reference node. If, on the other hand,
+a definition cannot be found in the symbol table, then an error message like \cref{fig:err-non-def-pref} is created.
+
+For example in the \cref{fig:shex-lite-sema-anal} the red lines would be the transformations done to the original AST to
+add the pointers to the referece nodes that point to the definition nodes.
+
+\begin{figure}
+    \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\scriptsize]
+error[E007]: prefix not defined
+--> shape_with_error_cause_pref_not_defined.shex:17:3
+    |
+17  | non_existing:label  xsd:string  +;
+    | ^ the prefix `non_existing` has not been defined
+    \end{lstlisting}
+    \caption[Semantic error produced by an undefined prefix]{Semantic error produced by an undefined prefix.}
+    \label{fig:err-non-def-pref}
+\end{figure}
 
 \subsection{Shape not defined}
+In the same way as the previous case, an undefined shape error occurs in the case that there is a reference to a shape
+expression that is not defined in the scope of the schema.
+
+For this, all the definitions of shape expressions of our schema must have been previously identified and indexed in
+a symbol table where the key is the name and the value a reference to the node of the definition. Once the definitions
+of shape expressions have been identified, we only have to go through those nodes of type reference to shape expression
+and look for a definition of a shape expression with the corresponding label within the scope of the prefix specified
+in the reference. If it exists, a reference is added to the type reference to shape that points to the corresponding
+definition. Otherwise, an error message like \cref{fig:err-non-def-shape} is generated.
+
+\begin{figure}
+    \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\scriptsize]
+error[E008]: shape not defined
+--> shape_with_error_cause_shape_not_defined.shex:16:13
+    |
+16  | @existing_prefix:Not_Existing_Shape
+    |                  ^ the shape `Not_Existing_Shape` has not been defined
+                         in the scope of the prefix `existing_prefix`
+    \end{lstlisting}
+    \caption[Semantic error produced by an undefined shape]{Semantic error produced by an undefined shape.}
+    \label{fig:err-non-def-shape}
+\end{figure}
 
 \subsection{Prefix overriden}
+We say that a prefix is overwritten when we come across a second prefix definition that tries to assign any
+value to a prefix that had already been defined previously.
+
+For this, during the identification of prefixes, every time we find a prefix type node we try to add a record
+to our symbol table. In this entry, the key will be the prefix label. If there is already an entry in the symbol
+table with the same tag, then we would be facing a prefix override. So instead of taking the action we would
+throw an error message like \cref{fig:err-override-prefix}.
+
+\begin{figure}
+    \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\scriptsize]
+error[E003]: attempt to override an already defined prefix
+--> shape_with_error_cause_prefix_override.shex:15:0
+    |
+15  | PREFIX foaf: <hppt://another/value>
+    | ^ this prefix definition overrides the previous one (9:0) with
+        value <http://xmlns.com/foaf/0.1/>
+    \end{lstlisting}
+    \caption[Semantic error produced by a prefix override]{Semantic error produced by a prefix override.}
+    \label{fig:err-override-prefix}
+\end{figure}
 
 \subsection{Shape overriden}
+The case of a shape expression overwriting is slightly less trivial in that a shape is identified as the
+union of an existing prefix and a unique identifier within the ambit of that prefix. Therefore, the way
+of acting will be (assuming that the prefix exists, if it would not be another error) check if a shape
+definition with the same identifier already exists within the scope of the indicated prefix. If it exists
+we will throw an error like the one from \cref{fig:err-override-shape}. If not, we will add a record to the
+indicated prefix scope with the corresponding information from the shape definition.
+
+\begin{figure}
+    \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\scriptsize]
+error[E004]: attempt to override an already defined shape
+--> shape_with_error_cause_shape_override.shex:40:0
+    |
+40  | :Q3559 {
+    |  ^ this shape definition overrides the previous one (17:0)
+41  |   schema:name xsd:string ;
+42  | }
+    \end{lstlisting}
+    \caption[Semantic error produced by a shape override]{Semantic error produced by a shape override.}
+    \label{fig:err-override-shape}
+\end{figure}
 
 \subsection{Unused prefix definition}
+One of the small optimizations that our semantic solution includes is the early detection of resources
+not defined as prefixes. In addition, it is a use case of semantic statistics generated by our proposed
+solution. In this specific case, what is checked is the number of resources that use a definition. For this,
+the symbol table is consulted since this is the one that stores this information. It corresponds to the
+relationships in green in \cref{fig:shex-lite-sema-anal}.
+
+In the event that a prefix definition has zero resources that use it, the prefix is not used and therefore
+it can be removed without problem since it only takes up space. To warn the user of this, a warning like \cref{fig:warn-pref-not-used}
+is generated
+
+\begin{figure}
+    \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\scriptsize]
+warning[W001]: prefix definition not used
+--> shape_with_warning_cause_prefix_never_used.shex:8:12
+    |
+8   | PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    |        ^ the prefix `owl` definition is never used
+    \end{lstlisting}
+    \caption[Semantic warning produced by a prefix never used]{Semantic warning produced by a prefix never used.}
+    \label{fig:warn-pref-not-used}
+\end{figure}
 
 \subsection{Base set but not used}
+Another case in which the early detection of unused resources is used is with the definition of the base.
+If for some reason a user assigns a value to the base but never uses it, a warning like \cref{fig:warn-base-not-used}
+is generated.
+
+\begin{figure}
+\begin{lstlisting}[numbers=left,basicstyle=\ttfamily\scriptsize]
+warning[W002]: base has been set but not used
+--> shape_with_warning_cause_base_set_but_never_used.shex:17:5
+    |
+17  | BASE <http://a/base/not/used/value>
+    |      ^ the base `<http://a/base/not/used/value>` definition is
+             set but not used
+    \end{lstlisting}
+    \caption[Semantic warning produced by a base set but never used]{Semantic warning produced by a base set but never used.}
+    \label{fig:warn-base-not-used}
+\end{figure}

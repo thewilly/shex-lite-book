@@ -120,16 +120,24 @@ With all that information we propose a list of enhancements that can be done to 
 As seen in previus sections there's work that can be done to improve the existing ecosystem of tools. We have identified the following aspects
 that will benefit end users:
 
-\begin{itemize}
-    \item \textbf{Enhancement of error messages.} Existing error messages, originated both by sintactic or semantic errors do not offer information about
+\begin{enumerate}
+    \item \textbf{Enhancement of error messages \cite{heeren2005top}.} Existing error messages, originated both by sintactic or semantic errors do not offer information about
     the exact place that originates the error nor a processed description nor possible solutions.
+
     \item \textbf{Creation of a new type of error messages with lower importance called warnings.} Currently systems do not analyze if declared resources are
     used and therefore there is no need to generate warnings. We propose to not only fully analyze the resources to detect non-used ones but also the creation
     or error messages with lower importance like warnings that can be used to offer more information to the end user.
+
     \item \textbf{Detection of override definitions.} Most of the existing tools prefer not to detect when a definition is being overriden, we propose to detect those
     situations and treat definitions as fixed values.
+
     \item \textbf{Detection of undefined references.} Some tools detect some broken references, we propose to enchace this situation and take that behaviour to
     other elements like shape references.
+
     \item \textbf{Detection of unused resources.} Related to the second point sometimes new users copy and paste old code which ends with lots of unused code,
     we propose a system that detects those situations and suggest to remove that unused code.
-\end{itemize}
+
+    \item \textbf{Detection of multiple errors / warnings at once.} Most of the current analyzers only provide information about the first error they find,
+    this means that if we have a scheme with multiple errors or warnings, only the first one will be shown to us and we will not be able to see the next one
+    until we solve the previous one. 
+\end{enumerate}

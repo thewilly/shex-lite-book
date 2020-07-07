@@ -1,9 +1,10 @@
 \chapter{Introduction}
 \label{ch:intro}
 
-This chapter covers the motivation, the contributions and the structure of the document. The aim for this chapter
-is that after reading it the reader already have general idea about the motivation of this dissertation, what it covers
-and its contributions.
+This chapter covers the motivation, contributions and structure of the document.
+The main objective of this chapter, therefore, is that after reading it, the reader
+forms an idea about the motivations that have promoted this project, what is
+being worked on and the contributions emanating from it.
 
 % S E C T I O N   M O T I V A T I O N
 
@@ -15,7 +16,7 @@ application in different domains that are backed by databases and expose these d
 amount and diversity of data produced clearly exceeds our capacity to consume it.
 
 To describe the data that is so large and complex that traditional data processing applications can’t handle the
-term big-data \cite{big-data} has emerged. Big data has been described by at least three words starting
+term big-data \cite{big-data,sagiroglu2013big} has emerged. Big data has been described by at least three words starting
 by V: volume, velocity, variety. Although volume and velocity are the most visible features, variety is a key concept
 which prevents data integration and generates lots of interoperability problems.
 
@@ -27,7 +28,7 @@ set of syntax rules, but also maintain extensibility through a separately define
 Ref.\url{https://en.wikipedia.org/wiki/Uniform_Resource_Identifier}} offered a solution to the data integration
 problem as RDF datasets produced by different means can seamlessly be integrated with other data.
 
-Also, and related to his is the concept of Linked Data \cite{linked-data} that was proposed as a set of best
+Also, and related to this, is the concept of Linked Data \cite{linked-data} that was proposed as a set of best
 practices to publish data on the Web. It was introduced by Tim Berners-Lee and was based on four main principles:
 
 \begin{itemize}
@@ -61,8 +62,8 @@ some specific values. Data consumers need to know that structure to develop appl
 Although RDF is a very flexible schema-less language, enterprise and industrial applications may require an extra level of
 validation before processing for several reasons like security, performance, etc.
 
-To solve that dilema and as an alternative to expecting the data to have some structure without validation, ShEx
-\textit{(Shape Expressions)} where proposed as a human-readable and high-level open source language for RDF validation. Initially ShEx was proposed
+To solve that dilema and as an alternative to expecting the data to have some structure without validation, Shape Expressions Language
+\textit{(ShEx)} was proposed as a human-readable and high-level open source language for RDF validation. Initially ShEx was proposed
 as a human-readable syntax for OSLC Resource Shapes \cite{oslc-resource-shape} but ShEx grew very fast to embrace more
 complex user requirements coming from clinical and library use cases.
 
@@ -81,16 +82,21 @@ of possibilities requieres from a strong sintactic and semantic validation and t
 Secondly and very related to programing languages, if we take the PopularitY of Programming Language \textit{(PYPL)} Index\footnote{\url{http://pypl.github.io/PYPL.html}}
 from June 2020 we can see that more than half of the share is occupied by languages that support the object orienten paradigm. And therefore this paradigm
 becomes the most used one. The aim of this paradigm is to model real world domains, acocrding to \cite{wegner1990concepts}. That, in fact, is the same goal
-that ShEx has, it allows to model real world domains with schemas, and validate existing data with them. Therefore our second research relies on this and tries
+that ShEx has, it allows to model real world domains with schemas, and validate existing data with them. Therefore our second research question relies on this and tries
 to automatically transform shape expressions into object domain models coded in any language that supports the object oriented paradigm:
 
 \begin{researchquestion}
   Till which point can we automatically translate existing shape expressions in to object domain models?
 \end{researchquestion}
 
-In order to answer the questions mentioned in this section, we will limit our working syntax to the reduced version of ShEx, defined in
-\footnote{\url{https://dcmi.github.io/dcap/shex_lite/micro-spec.html}}. This reduced version is a strict subset of the full version and
-therefore, any conclusion drawn from it is extrapolated to ShEx.
+If this were possible it would not only imply that you could automate the creation of application domain models but that you could link the domain model that an
+application uses with a domain model defined through Shape Expressions that describes the schema of a RDF data set.
+
+\bigskip
+
+To give answers to the questions posed in this section, we will limit our scope to the micro grammar of Shape Expressions, defined in
+\footnote{\url{https://dcmi.github.io/dcap/shex_lite/micro-spec.html}}. This version is a strict subset of the complete ShEx grammar
+and therefore any conclusion we can draw from it can automatically be applied to the full grammar.
 
 % S E C T I O N   C O N T R I B U T I O N S
 

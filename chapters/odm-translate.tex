@@ -5,7 +5,8 @@ The ODMTP \textit{(Object Domain Model Translation Problem)}, when talking about
 Shape Expressions, is the aim to transform existing schemas, that already represent
 domain models, in to object domain models. Or what it is the same, translate the ShEx
 schemas to objects coded in some Object Oriented Language. \cref{fig:shex-translate-small}
-represents this aim. The problem is to convert the \textit{Source} in to the \textit{Target}.
+represents this aim. The problem is to convert the \textit{Source} in to the \textit{Target}
+($shex \rightarrow object\ oriented\ language$).
 
 \begin{center}
 	\noindent\begin{minipage}[t]{.4\textwidth}
@@ -35,68 +36,74 @@ public class Person {
 	\label{fig:shex-translate-small}
 \end{center}
 
-This problem, with the example from \cref{fig:shex-translate-small} might seem simple to solve,
-but before proposing a solution we will need to explore if the all that ShEx can express can be
-translated to every object oriented programming language. For that propose we will generalize
-the generated domain models to what it is known as PO \textit{(Plain Objects)} \cite{fowler1997analysis}, that is,
-simple objects that do not rely on any framework. And then the main question to this problem changes to
-if we can translate any Shape Expression to a Plain Object.
+This problem, with the previous example \cref{fig:shex-translate-small}, may seem simple to solve, however,
+before proposing a solution, we need to explore if everything that can be expressed with ShEx can be
+expressed in object-oriented languages.
 
-In order to solve that question we will need to explore and compare the expressivity of both concetps. 
+To answer this question, we will reduce our problem by using the micro ShEx syntax and PO \textit{(Plain Objects)}
+\cite{fowler1997analysis} as a generalization of all the programming languages that support the object orientated
+paradigm. Therefore our study will focus on finding out if we can express in plain objects everything we can express
+in the ShEx micro syntax. \cref{eq:expressivity-question} illustrates this question where $e(x)$ measures the
+expressivity \cite{felleisen1991expressive} of $x$.
+
+\begin{equation} \label{eq:expressivity-question}
+    e(shex\ micro\ syntax) \leq e(plain\ objects)
+\end{equation}
+
+So, the first step will be to measure the expressivities of both the ShEx micro syntax and the Plain Objects to later
+compare them.
 
 % S E C T I O N   S H A P E   E X P R E S S I O N S   E X P R E S I V I T Y
 
 \section{Shape Expressions Expressivity}
-Best way to study Shape Expressions expressivity is by exploring its data model and everything that can be represented
-by them, \cref{fig:shex-data-model} displays the ShEx recursive data model.
+To measure the expressiveness of the ShEx micro syntax we will explore its abstract grammar \cref{fig:shex-micro-abstract-grammar}.
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{images/shape-expr-data-model.pdf}
-    \centering
-    \caption[ShEx data model.]{ShEx data model.}
-    \label{fig:shex-data-model}
+\begin{lstlisting}[numbers=left,basicstyle=\ttfamily\small]
+schema           ::= definition+
+definition       ::= prefixDef | baseDef | startDef | shapeDef
+prefixDef        ::= ID IRI
+baseDef          ::= IRI
+startDef         ::= SHAPE_REF
+shapeDef         ::= IRI_REF tripleConstraint+
+tripleConstraint ::= IRI_REF constraint CARDINALITY
+constraint       ::= IRI_REF | SHAPE_REF | "IRI" | "BNODE" |
+                     "NONLITERAL" | "LITERAL"
+\end{lstlisting}
+\caption[ShEx Micro Abstract Grammar]{ShEx Micro Abstract Grammar.}
+\label{fig:shex-micro-abstract-grammar}
 \end{figure}
 
-As we can see from \cref{fig:shex-data-model} the data model of ShEx is hardly complicated, it contains,
-conditional constraints, root node constraints, nested constraints and even logical constraints,
-\cref{fig:shex-example-schemas} shows some examples of this.
-
-When we talk about translating schemas into object domain models we are only interested in the subset of
-shape expressions that are formed by a set of properties, that means the shape expressions that define constraints
-for root nodes, like \cref{fig:shex-example-schemas} \textit{(a)}, won't be of our interest.
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{images/shex-different-expressions.pdf}
-    \centering
-    \caption[ShEx example schemas.]{ShEx example schemas. \textit{(a)} applies a node constraint to a root node.
-    \textit{(b)} Shows how an conditional constaint can be applied to a property node. And \textit{(c)} shows how
-    custom data types \texttt{ctd} can be applied to a property node.}
-    \label{fig:shex-example-schemas}
-\end{figure}
-
-\subsection{Properties Set Defined Shapes}
-A property set defined shape is a shape expression that it is defined as a set of properties, for example \cref{fig:shex-example-schemas}
-\textit{(b)} and \textit{(c)}. This kind of shape expressions express that a node must contain the indicated properties, each one with its type.
-
-Then, we can generalize that a shape expression is formed by the schema name and the list of constraint-annotated properties,
-\cref{fig:prop-def-shape-diagram} shows the different parts that compose a property set defined shape.
+From the grammar we can infer that a shape is defined as an identifier and a set of triple expressions where each
+triple expression is in turn defined as the property, which is a reference to a prefix, the constraint and the
+cardinality. This, therefore, allows us to express that an object can be defined by one or by multiple properties,
+each with a specific type. In addition, each of these properties that define the model can be repeated $n$ times,
+indicated by the cardinality. \cref{fig:prop-def-shape-diagram} shows an example of a shape expression coded on
+its micro compact syntax that defines two properties for the object \texttt{:Preson}.
 
 \begin{figure}
-    \includegraphics[scale=0.7]{images/diagram-of-shape.pdf}
+    \includegraphics[scale=0.7]{images/shex-example-parts.pdf}
     \centering
-    \caption[Property set defined shape model.]{Property set defined shape model.}
+    \caption[Shape expression modeling the properties of a Person]{Shape expression modeling the properties of a Person.}
     \label{fig:prop-def-shape-diagram}
 \end{figure}
 
-Furthermore, we can conclude:
+In that shape expression we can see that we have a property that represents the name with type string and the default cardinality \textit{(1)}.
+And a second property \texttt{knows} whose type is a reference to another person and has multiple cardinality so it represents a list of people you know.
 
-\begin{partconclusion}
-    The expressivity of a property set defined shape depends on the node constraints of its properties.
-\end{partconclusion}
+So we have just seen that a shape, in its reduced grammar is a set of triple expressions made up of the property, the type and the cardinality,
+therefore we can formalize that a shape is defined as,
 
-\subsection{Property Node Constraints}
-The different constraints that a node might have in Shape Expressions are shown in \todo{Insertar table de
-node constraints del libro de labra}.
+\begin{equation}\label{eq:shape-formalization}
+shape_m \rightarrow \left \{ (p_{1m},t_{1m},c_{1m}),\ (p_{2m},t_{2m},c_{2m}),\ \dots,\ (p_{nm},t_{nm},c_{nm}) \right \}
+\end{equation}
+
+where $p_n \rightarrow property\ name\ of\ n$, $t_n \rightarrow type\ of\ n$ and $c_n \rightarrow cardinality\ of\ n$.
+And therefore an schema is defined as,
+
+\begin{equation}\label{eq:schema-formalization}
+schema \rightarrow \left \{ shape_1,\ shape_2,\ \dots,\ shape_n \right \}
+\end{equation}
 
 
 % S E C T I O N   P L A I N   O B J E C T S   E X P R E S I V I T Y
@@ -128,12 +135,24 @@ language that includes lots of features.
 \cref{fig:shex-translate-small}. For example if we analyze the Java fragment, that seems to be the most complex
 one out of the three fragments we can see in \cref{fig:java-analysis} that it is composed by the \textit{Schema Name},
 the \textit{List of Type Annotated Properties} and some \textit{Language Specific Code}. This corelates to the other
-two programming languages as they also contain this three elements. Therefore after this brief analysis we can conclude:
+two programming languages as they also contain this three elements. Therefore after this brief analysis we can generalize that,
 
-\begin{partconclusion}
-    Any Plain Object, coded in a programming language that supports the object oriented paradigm, will be composed of
-    those three elements: \textbf{Schema Name}, \textbf{Type Annotated Properties} and \textbf{Language Specific Code}.
-\end{partconclusion}
+\begin{equation}\label{eq:plain-object}
+    plain\ object_m \rightarrow \left \{ (p_{1m}, t_{1m}),\ (p_{2m}, t_{2m}),\ \dots,\ (p_{nm}, t_{nm}) \right \} + lsc
+\end{equation}
+
+where $p_n \rightarrow property\ name\ of\ n$, $t_n \rightarrow type\ of\ n$ and $lsc \rightarrow language\ specific\ code$.
+And therefore a model based on plain objects is defined as,
+
+\begin{equation}\label{eq:plain-object-model}
+model \rightarrow \{ po_1,\ po_2,\ \dots,\ po_n \}
+\end{equation}
+
+where $po_n$ represents the plain object.
+
+It is important to note that part of that language-specific code is responsible for representing the language-specific type system.
+Therefore, before formalizing our generalization, we must explore whether the type system of a language affects its expressiveness
+and, if so, find those types that are common to most languages of this type, if any.
 
 \begin{figure}
     \includegraphics[scale=0.2]{images/java-analysis.png}
@@ -153,19 +172,15 @@ to find two \textit{type-independent languages}.
     represented by means of a linear combination of any other type of the other language.
 \end{definition}
 
-For example, lets take Java \textit{$L_1$} and Rust \textit{$L_1$}, examples \textit{(a)} and \textit{(c)} from \cref{fig:person-codings}.
+For example, lets take Java \textit{$L_1$} and Rust \textit{$L_2$}, examples \textit{(a)} and \textit{(c)} from \cref{fig:person-codings}.
 Rust contains the type $Either<A,B>$, this type allows the type $A$ or $B$ and when accessed is not an $Either$ is either $A$ or $B$. In
 Java there is no $Either$ type, and someone can say that we could achive a similar type by using inheritance and classes composition. But
 at the end when accessed the type would be the type of the upper class. \textbf{Therefore Java and Rust are type-independent languages}.
 
 Now in order to see if the expressivity depends on the types of a language let's assing values to Java and Rust by using the same
 $Either<A,B>$ type. As can be see in \cref{fig:java-rust-comparison} Java does not allow to express the same as Rust is expressing
-in this example. And therefore we can conclude that:
-
-\begin{partconclusion}
-    The expresivity of plain object is stronggly related to the build-in types that the programming language in which they are coded
-    provides.
-\end{partconclusion}
+in this example. And therefore we can conclude that the expresivity of plain object is stronggly related to the build-in types that
+the programming language in which they are coded provides.
 
 \begin{center}
 	\noindent\begin{minipage}[t]{.4\textwidth}
@@ -200,17 +215,72 @@ public class Person {
 
 
 \subsection{Plain Objects Expressivity Generalization}
-\todo{Generalizar que un PO viene a ser una lista de propiedad valor donde lo importante son los tipos de cada lenguage,
-sin embargo los tipos principales que todos los PO cumplen son los Strings, los números enteros y de coma flotante, referencias
-a otros objetos y listas de los tipos anteriores.}
+In order to obtain a generalization of the plain objects represented by means of object-oriented programming languages,
+we will base ourselves on \cref{eq:plain-object} where we defined the composition of a flat object, in this way the
+generalization would be as indicated in \cref{fig:po-generalization}. As can be seen this gneralization is not complete
+as it does not include the production for the \texttt{type}. Thi is because we have not generalized the type system of the
+object oriented programing languages yet.
+
+\begin{figure}
+    \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\small]
+    plain object     ::= (ID type)+
+    \end{lstlisting}
+    \caption[Plain Objects Partial Generalization]{Plain Objects Partial Generalization.}
+    \label{fig:po-generalization}
+\end{figure}
+
+However and motivated not to over-extend the scope of this work instead of extracting a generalization for the possible types
+that can be used in each object-oriented programming language, we will try to create this abstraction projecting it on the
+most common types used by XML Schema (xsd) \cite{xmlschemasimpleelements}. The main reason is that in RDF, and therefore in ShEx, xsd is the most widely
+used type system and the standard of w3c. This leads us to the generalization from \cref{fig:po-generalization-complete} where we re-use the
+\texttt{xsd} types and add the \texttt{ID} that actually represents compound types, that is types that are in fact plain objects.
+
+\begin{figure}
+    \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\small]
+    plain object     ::= (ID type)+
+    type             ::= INTEGER | DECIMAL | STRING | BOOLEAN | ID
+    \end{lstlisting}
+    \caption[Plain Objects Complete Generalization]{Plain Objects Complete Generalization.}
+    \label{fig:po-generalization-complete}
+\end{figure}
 
 % S E C T I O N   C O M P A R I S O N 
 
 \section{Shape Expressions and Plain Objects Expressivity Comparison}
 
 Previous section cover the expressivity of Shape Expressions and Plain Objects, in this section we compare both expressivities and
-expose if both expresivities are fully compatible or not.
+expose if both expresivities are fully compatible or not. In \cref{eq:schema-formalization} we defined an schema and our aim to find if it is possible
+to define a function $f$ such that $f(schema)\rightarrow model$ where $model$ is defined in \cref{eq:plain-object-model}. To achieve this function, it
+is necessary that the expressiveness of the origin be less than or equal to that of the destination and now that we have already defined the
+expressivities of each system we can compare them.
 
-\todo{Decir los PO presentan más restricciones que las shape expressions ya que por defecto, no permiten
-tipos distintos (operaciones aritmeticológicas de tipos) y por tanto los PO permiten representar las listas de propiedades cuando
-estas tienen un único tipo y su tipo es conocido (estándar).}
+Let's simplify the problem by eliminating all those common factors that we have in both systems. For example, from \cref{eq:schema-formalization} and \cref{eq:plain-object-model}
+we have lists of properties with something else, let's reduce the case to having a single property with something else like,
+\begin{equation}
+    (p_n,t_n,c_n);\ (p_n,t_n).
+\end{equation}
+Also in both cases we find that the property is a free text that identifies that property, so we eliminate it from the problem. And we are left with,
+\begin{equation}
+    (t_n,c_n);\ (t_n)
+\end{equation}
+where we need to find if the existis a function $f'$ such that we can map $(t_n,c_n)$ to $(t_n)$.
+
+With the data that we currently have, we can now conclude that the expressiveness of the ShEx micro grammar is still greater than the
+generalization proposed for plain objects, however this does not imply that there is no function $f$ that can map some schemas to
+plain objects models. Furthermore, that means the opposite. From the current data we can ensure that there is at least a function $f$ capable of
+mapping from shape expressions to plain object models provided that,
+
+\begin{equation}\label{eq:constraint}
+    t_n \in \left \{ string,\ integer,\ date,\ compoundObject \right \} and\ c_n \in \{ (1,1),\ (0,\infty)\}.
+\end{equation}
+
+That means that we will not be able to translate everything that can be expressed in ShEx Micro Compact Syntax but also means that we will be able
+to at least translate some of the shapes. \cref{fig:mapping-f} illustrates this scenario. As you can see in the figure some shapes can be mapped, like the first two,
+and other can't, like the third, in this case due to the cardinality not following the \cref{eq:constraint}.
+
+\begin{figure}
+    \includegraphics{images/shex-lite-mapping.pdf}
+    \centering
+    \caption[Mapping function from ShEx to Plain Object]{Mapping function from ShEx to Plain Object.}
+    \label{fig:mapping-f}
+\end{figure}
