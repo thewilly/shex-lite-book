@@ -461,21 +461,21 @@
 \RequirePackage[capitalize]{cleveref}
 
 % Disable the automatic abbreviations of equations and figures.
-\crefname{equation}{Equation}{Equations}
+\crefname{equation}{Formalization}{Formalizations}
 \crefname{figure}{Figure}{Figures}
-\Crefname{equation}{Equation}{Equations}
+\Crefname{equation}{Formalization}{Formalizations}
 \Crefname{figure}{Figure}{Figures}
 
 % Change the way links are produced in PDF documents.
 \crefformat{chapter}{#2Chapter~#1#3}
 \crefformat{section}{#2Section~#1#3}
 \crefformat{figure}{#2Figure~#1#3}
-\crefformat{equation}{#2Equation~#1#3}
+\crefformat{equation}{#2Formalization~#1#3}
 \crefformat{table}{#2Table~#1#3}
 \Crefformat{chapter}{#2Chapter~#1#3}
 \Crefformat{section}{#2Section~#1#3}
 \Crefformat{figure}{#2Figure~#1#3}
-\Crefformat{equation}{#2Equation~#1#3}
+\Crefformat{equation}{#2Formalization~#1#3}
 \Crefformat{table}{#2Table~#1#3}
 \creflabelformat{equation}{#2#1#3}
 

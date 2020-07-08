@@ -26,3 +26,30 @@ On this platform we have collected all files with the \texttt{.shex} extension a
 we have filtered and reduced to only those schemas that were expressed through ShEx's reduced grammar.
 
 \section{Results}
+
+\begin{table}
+  \centering
+  \caption{Detection of the different sintactic errors by the current existing ShEx tools that sintactically analyze the
+  shape expressions.}
+  \label{tb:errors-results}
+  \resizebox{\textwidth}{!}{\begin{tabular}{lllllllllllllll}
+    \hline\hline
+    \multicolumn{3}{l}{Expected} & \multicolumn{3}{l}{ShEx-Lite} & \multicolumn{3}{l}{rdfshape} & \multicolumn{3}{l}{Shaclex} & \multicolumn{3}{l}{ShEx.js} \\
+    \hline
+    0      & 0        & 0        & 0       & 0        & 0        & 0        & 0       & 0       & 0       & 0       & 0       & 0       & 0        & 0      \\
+    0      & 0        & 1        & 0       & 0        & 1        & 0        & 0       & 0       & 0       & 0       & 0       & 0       & 0        & 0      \\
+    0      & 0        & 2        & 0       & 0        & 2        & 0        & 0       & 0       & 0       & 0       & 0       & 0       & 0        & 0      \\
+    0      & 1        & 0        & 0       & 1        & 0        & 0        & 1       & 0       & 0       & 1       & 0       & 0       & 1        & 0      \\
+    0      & 2        & 0        & 0       & 2        & 0        & 0        & 1       & 0       & 0       & 1       & 0       & 0       & 2        & 0      \\
+    0      & 3        & 0        & 0       & 3        & 0        & 0        & 1       & 0       & 0       & 1       & 0       & 0       & 2        & 0      \\
+    1      & 0        & 0        & 1       & 0        & 0        & 1        & 0       & 0       & 1       & 0       & 0       & 1       & 0        & 0      \\
+    2      & 0        & 0        & 2       & 0        & 0        & 1        & 0       & 0       & 1       & 0       & 0       & 1       & 0        & 0      \\
+    0      & 1        & 1        & 0       & 1        & 1        & 0        & 1       & 0       & 0       & 1       & 0       & 0       & 1        & 0      \\
+    1      & 1        & 1        & 1       & 0        & 0        & 1        & 0       & 0       & 1       & 0       & 0       & 1       & 0        & 0      \\
+    0      & 2        & 1        & 0       & 2        & 1        & 0        & 1       & 1       & 0       & 1       & 1       & 0       & 2        & 1      \\
+    1      & 0        & 1        & 1       & 0        & 0        & 1        & 0       & 0       & 1       & 0       & 0       & 1       & 0        & 0      \\
+    0      & 200      & 200      & 0       & 200      & 200      & 0        & 1       & 0       & 0       & 1       & 0       & 0       & 200      & 0      \\
+    \hline
+    5      & 210      & 207      & 5       & 209      & 205      & 4        & 6       & 1       & 4       & 6       & 1       & 4       & 208      & 1
+    \end{tabular}}
+\end{table}

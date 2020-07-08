@@ -1,5 +1,22 @@
 \chapter{Conclusions}
 \label{ch:conclusions}
+The analysis methods proposed for shape expressions can be used to perform lexical,
+syntactic and grammar analyzes that can be used to build tools such as development
+environments or compilation servers for shape expressions. In addition, it has been
+shown that shape expressions can be integrated with object-oriented programming
+languages. This proposal is materialized in ShEx-Lite, an infrastructure proposed
+as a tradoctor where the analysis phase includes all the proposed methods and where
+the synthesis phase applies the proposed transformation methods.
+
+After evaluating the ShEx-Lite system with respect to the rest of the identified systems,
+it can be seen that the content of the representations that other systems use to carry
+out their analyzes can be enriched, so that with a better representation, better
+validation can be performed.
+
+Another important aspect to emphasize is that after evaluation we realize that the
+communication system for syntactic and semantic errors of other systems may benefit
+from this work.
+
 
 \section{Future Work}
 Currently both proposed solutions are based on the reduced ShEx grammar,
@@ -10,3 +27,11 @@ can benefit all users of the language.
 The next step would be to expand the range of the static analysis of shape expressions
 so that it supports more elements of the grammar so that all the elements that make
 up a shape, their dependencies and relationships can be analyzed in much more detail.
+
+\begin{itemize}
+    \item One of the next steps is to adapt the proposed solution to generate code so
+    that it reads a new form expressions syntax oriented to tabular formats. For this
+    proposal, regular meetings are being held with the Dublin Core Metadata Initiative
+    team, which is the driving force behind this new syntax.
+
+\end{itemize}

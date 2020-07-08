@@ -86,50 +86,134 @@ one for each language specific level of the plain objects.
     \label{fig:class-diagram-cg}
 \end{figure}
 
-\section{Implementation}
+And as proof of concept of the structure proposed in the previous section, we implemented a system that starts from the one
+developed in \cref{sec:anal-implementation} and is capable of generating code from schematics, checking that they are valid.
+This solution follows structructure developed in this system and more precisely \cref{fig:class-diagram-cg}. Moreover this
+developed system offers a CLI tool (\cref{fig:menu-tool}). In this tool the users can define multiple options as \texttt{--java-pkg=STRING} which if
+present will trigger the java code generation and will generate the target object in the specified package.
+
+For example, for the input \texttt{java -jar shexlc.jar --java-pkg=demo person.shexl} where the \texttt{person.shexl}
+file corresponds to the schema defined at \cref{fig:shex-translate-small} \texttt{ShEx-Lite} would generate a single java
+class with the code that appears at the \texttt{Person.java} file, also in \cref{fig:shex-translate-small}.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{images/shexlc-menu.PNG}
+    \centering
+	\caption[CLI menu of \texttt{ShEx-Lite} CLI tool]{CLI menu of \texttt{ShEx-Lite} CLI tool.}
+    \label{fig:menu-tool}
+\end{figure}
+
+This system
+will be used for evaluating the proposed solution.
 
 \section{Generated Obejcts}
+In this section we will give real examples of use cases in which the proposed system has been used to generate objects,
+in addition we will study the objects in order to estimate their quality.
 
-\begin{figure}
-    \includegraphics[width=\textwidth]{images/shex-lite-syntaxes-mental-model.png}
-    \centering
-    \caption[Mental model of ShEx-Lite in the existing ShEx syntaxes context.]{Mental model of
-    ShEx-Lite in the existing ShEx syntaxes context. From this model we can see that Shex-Lite
-    is in fact an strictly subset of ShExC, which follows the ShEx Specification. And therefore
-    ShEx-Lite will also follow that expecification, which automatically enables ShEx-Lite schemas
-    to be used in any other existing ShEx tool.}
-    \label{fig:syntax-mental-model}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=\textwidth]{images/shex-lite-constraints-context.png}
-  \centering
-  \caption[Constraints and checks context diagram for ShEx-Lite and ShEx.]{Constraints
-  and checks context diagram for ShEx-Lite and ShEx.}
-  \label{fig:constraints-context}
-\end{figure}
+\subsection{Real (Hércules ASIO European Project)}
+In the framework of the European project Hercules ASIO, financed with FIVE MILLION FOUR HUNDRED SIXTY-TWO THOUSAND SIX HUNDRED
+euros, the system described is used to link two parts of the architecture, the ontological infrastructure and the semantic 
+infrastructure. The Hercules project tries to find a solution based on linked data to manage the research framework
+in Spanish universities. Some examples of the obejects generated in this project are \cref{fig:example-2} and \cref{fig:example-3}.
 
 \begin{center}
 	\noindent\begin{minipage}[t]{.4\textwidth}
-		\begin{lstlisting}[frame=topline,numbers=left,title=\scriptsize\texttt{Person.shexl}, basicstyle=\ttfamily\scriptsize]{a}
+		\begin{lstlisting}[frame=topline,numbers=left,firstnumber=0,title=\scriptsize\texttt{University.shexl}, basicstyle=\ttfamily\scriptsize]{a}
 # Prefixes...
-:Person {
-	:name xsd:string ;
-	:knows @:Person *
+asio:University {
+  rdfs:name xsd:string ;
+  rdfs:county   xsd:string ;
+  rdfs:location xsd:String ;
+  asio:hasRector
+    @asio:UniversityStaff ;
+	...
 }
 		\end{lstlisting}
 	\end{minipage}\hfill
 	\begin{minipage}[t]{.5\textwidth}
-		\begin{lstlisting}[language=Java, frame=t,numbers=left,title=\scriptsize\texttt{Person.java}, basicstyle=\ttfamily\scriptsize]{b}
+		\begin{lstlisting}[language=Java, frame=t,numbers=left,firstnumber=0,title=\scriptsize\texttt{University.java}, basicstyle=\ttfamily\scriptsize]{b}
 // Imports...
-public class Person {
-	private String name;
-	private List<Person> knows;
+public class University {
+  private String name ;
+  private String country ;
+  private String location ;
+  private asio.UniversityStaff hasRector ;
+  ...
+  // Constructor...
+  // Getters and Setters...
+}
+		\end{lstlisting}
+	\end{minipage}
+	\captionof{figure}{Schema modeling a \texttt{University} in \texttt{shexl} syntax to the left. And the \texttt{ShEx-Lite} generated code in \texttt{Java} to the right.}
+	\label{fig:example-2}
+\end{center}
+
+\begin{center}
+	\noindent\begin{minipage}[t]{.4\textwidth}
+		\begin{lstlisting}[frame=topline,numbers=left,firstnumber=0,title=\scriptsize\texttt{Researcher.shexl}, basicstyle=\ttfamily\scriptsize]{a}
+# Prefixes...
+asio:Researcher {
+  rdfs:name xsd:string ;
+  rdfs:surname   xsd:string ;
+  rdfs:id xsd:integer ;
+  rdfs:orcid xsd:string ;
+  rdfs:publications
+    @asio:AcademicPublication * ;
+	...
+}
+		\end{lstlisting}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{.5\textwidth}
+		\begin{lstlisting}[language=Java, frame=t,firstnumber=0,numbers=left,title=\scriptsize\texttt{Researcher.java}, basicstyle=\ttfamily\scriptsize]{b}
+// Imports...
+public class University {
+  private String name ;
+  private String surname ;
+  private int id ;
+  private String orcid ;
+  private List<asio.AcademicPublication>
+    publications ;
+  ...
+  // Constructor...
+  // Getters and Setters...
+}
+		\end{lstlisting}
+	\end{minipage}
+	\captionof{figure}{Schema modeling a \texttt{Researcher} in \texttt{shexl} syntax to the left. And the \texttt{ShEx-Lite} generated code in \texttt{Java} to the right.}
+	\label{fig:example-3}
+\end{center}
+
+\subsection{Synthetic (Generated)}
+In addition to the actual use case mentioned above, different generations of synthetically generated objects have been made to validate that the generation is correct.
+\cref{fig:example-4} illustrates a generated schema that contains all the possible types that our solution can represent in any object oriented language.
+
+\begin{center}
+	\noindent\begin{minipage}[t]{.4\textwidth}
+		\begin{lstlisting}[frame=topline,numbers=left,firstnumber=0,title=\scriptsize\texttt{Synthetic.shexl}, basicstyle=\ttfamily\scriptsize]{a}
+# Prefixes...
+a:b {
+	:c xsd:string ;
+	:d xsd:integer ;
+	:e xsd:float ;
+	:e xsd:boolean ;
+	:f @a:b ;
+}
+		\end{lstlisting}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{.5\textwidth}
+		\begin{lstlisting}[language=Java, frame=t,numbers=left,firstnumber=0,title=\scriptsize\texttt{Synthetic.java}, basicstyle=\ttfamily\scriptsize]{b}
+package a;
+// Imports...
+public class B {
+	private String c;
+	private int d;
+	private int e;
+	private a.B f;
 	// Constructor...
 	// Getters and Setters...
 }
 		\end{lstlisting}
 	\end{minipage}
-	\captionof{figure}{Schema modeling a \texttt{Person} in \texttt{shexl} syntax to the left. And the \texttt{ShEx-Lite} generated code in \texttt{Java} to the right.}
-	\label{fig:example-1}
+	\captionof{figure}{Synthetic schema in \texttt{shexl} syntax to the left. And the \texttt{ShEx-Lite} generated code in \texttt{Java} to the right.}
+	\label{fig:example-4}
 \end{center}
