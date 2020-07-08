@@ -95,14 +95,17 @@ So we have just seen that a shape, in its reduced grammar is a set of triple exp
 therefore we can formalize that a shape is defined as,
 
 \begin{equation}\label{eq:shape-formalization}
-shape_m \rightarrow \left \{ (p_{1m},t_{1m},c_{1m}),\ (p_{2m},t_{2m},c_{2m}),\ \dots,\ (p_{nm},t_{nm},c_{nm}) \right \}
+\begin{gathered}
+S = \{ (p_{1},t_{1},c_{1}),\ (p_{2},t_{2},c_{2}),\ \dots,\ (p_{n},t_{n},c_{n})\ |\ p \in String,\\
+t \in RDF\ Type,\ c \in \{[0,0],\ ...,\ [\infty,\infty] \} \}
+\end{gathered}
 \end{equation}
 
-where $p_n \rightarrow property\ name\ of\ n$, $t_n \rightarrow type\ of\ n$ and $c_n \rightarrow cardinality\ of\ n$.
+where $p \rightarrow property\ name$, $t \rightarrow type$ and $c \rightarrow cardinality$.
 And therefore an schema is defined as,
 
 \begin{equation}\label{eq:schema-formalization}
-schema \rightarrow \left \{ shape_1,\ shape_2,\ \dots,\ shape_n \right \}
+SC = \left \{ S_1,\ S_2,\ \dots,\ S_n \right \}
 \end{equation}
 
 
@@ -138,17 +141,20 @@ the \textit{List of Type Annotated Properties} and some \textit{Language Specifi
 two programming languages as they also contain this three elements. Therefore after this brief analysis we can generalize that,
 
 \begin{equation}\label{eq:plain-object}
-    plain\ object_m \rightarrow \left \{ (p_{1m}, t_{1m}),\ (p_{2m}, t_{2m}),\ \dots,\ (p_{nm}, t_{nm}) \right \} + lsc
+\begin{gathered}
+PO = \{ (p_{1}, t_{1}),\ (p_{2}, t_{2}),\ \dots,\ (p_{n}, t_{n})\ |\ p \in String,\\
+t\in Language\ Specific\ Type\ System \} + lsc
+\end{gathered}
 \end{equation}
 
-where $p_n \rightarrow property\ name\ of\ n$, $t_n \rightarrow type\ of\ n$ and $lsc \rightarrow language\ specific\ code$.
+where $p \rightarrow property\ name$, $t \rightarrow type$ and $lsc \rightarrow language\ specific\ code$.
 And therefore a model based on plain objects is defined as,
 
 \begin{equation}\label{eq:plain-object-model}
-model \rightarrow \{ po_1,\ po_2,\ \dots,\ po_n \}
+MO = \{ PO_1,\ PO_2,\ \dots,\ PO_n \}
 \end{equation}
 
-where $po_n$ represents the plain object.
+where $PO$ represents the plain object.
 
 It is important to note that part of that language-specific code is responsible for representing the language-specific type system.
 Therefore, before formalizing our generalization, we must explore whether the type system of a language affects its expressiveness
@@ -238,7 +244,7 @@ used type system and the standard of w3c. This leads us to the generalization fr
 \begin{figure}
     \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\small]
     plain object     ::= (ID type)+
-    type             ::= INTEGER | DECIMAL | STRING | BOOLEAN | ID
+    type             ::= REAL | LIST[type] | STRING | BOOLEAN | ID
     \end{lstlisting}
     \caption[Plain Objects Complete Generalization]{Plain Objects Complete Generalization.}
     \label{fig:po-generalization-complete}
@@ -257,29 +263,58 @@ expressivities of each system we can compare them.
 Let's simplify the problem by eliminating all those common factors that we have in both systems. For example, from \cref{eq:schema-formalization} and \cref{eq:plain-object-model}
 we have lists of properties with something else, let's reduce the case to having a single property with something else like,
 \begin{equation}
-    (p_n,t_n,c_n);\ (p_n,t_n).
+\begin{gathered}
+\{p,\ t,\ c\ |\ p \in String,\ t \in RDF\ Type,\ c \in \{[0,0],\ ...,\ [\infty,\infty] \}\};\\
+\{p,\ t\ |\ p \in String,\ t \in \{String, Real, Boolean, List, Compound\}\}.    
+\end{gathered}
 \end{equation}
 Also in both cases we find that the property is a free text that identifies that property, so we eliminate it from the problem. And we are left with,
 \begin{equation}
-    (t_n,c_n);\ (t_n)
+\begin{gathered}
+\{t,\ c\ |\ t \in RDF\ Type,\ c \in \{[0,0],\ ...,\ [\infty,\infty] \}\};\\
+\{t\ |\ t \in \{String, Real, Boolean, List, Compound\}\} 
+\end{gathered}
 \end{equation}
 where we need to find if the existis a function $f'$ such that we can map $(t_n,c_n)$ to $(t_n)$.
 
-With the data that we currently have, we can now conclude that the expressiveness of the ShEx micro grammar is still greater than the
-generalization proposed for plain objects, however this does not imply that there is no function $f$ that can map some schemas to
-plain objects models. Furthermore, that means the opposite. From the current data we can ensure that there is at least a function $f$ capable of
-mapping from shape expressions to plain object models provided that,
+Now the question changes and what we have to compare is if the $RDF\ Type\ \cap\ \{[0,0],\ ...,\ [\infty,\infty]\}$ can be represented by means of
+$\{String, Real, Boolean, List, Compound\}$. For this purpose we will assign different values inside and outside the ranges that we have defined for each set.
+In addition, we will define the axiom that the cardinality $(0, \infty)\ \cap\ RDF\ Type$ is the same as $List[RDF\ Type]$. So,
+\begin{equation}\label{eq:values-mapping}
+    \begin{aligned}
+(string,(1,1)) & \rightarrow & (string)\\
+(Person,(0,\infty)) & \rightarrow & (List[Person])\\
+(string,(1,2)) & \rightarrow & \times \\
+(Person,(2,\infty)) & \rightarrow & \times \\
+(centimeters,(1,1)) & \rightarrow & \times  
+    \end{aligned}
+\end{equation}
 
-\begin{equation}\label{eq:constraint}
-    t_n \in \left \{ string,\ integer,\ date,\ compoundObject \right \} and\ c_n \in \{ (1,1),\ (0,\infty)\}.
+From the values we gave in \cref{eq:values-mapping} we can see that for some cases there is no schema-object equivalence. However, for others there exist
+such and equivalence. Thus, we will define a Subset $S'$ in which we will restrict the types and the cardinality so that those shapes that are defined in
+that subset have an equivalent object. Then,
+
+\begin{equation}\label{eq:shape-reduction}
+\begin{gathered}
+S' = \{ (p_{1},t_{1},c_{1}),\ (p_{2},t_{2},c_{2}),\ \dots,\ (p_{n},t_{n},c_{n})\ |\ p \in String,\\
+t \in \{String, Real, Boolean, Compound\},\ c \in \{[1,1],\ [0,\infty] \} \}.
+\end{gathered}
+\end{equation}
+
+Thus,
+
+\begin{equation}\label{eq:schema-reduction}
+\begin{gathered}
+SC' = \left \{ S'_1,\ S'_2,\ \dots,\ S'_n \right \}.
+\end{gathered}
 \end{equation}
 
 That means that we will not be able to translate everything that can be expressed in ShEx Micro Compact Syntax but also means that we will be able
 to at least translate some of the shapes. \cref{fig:mapping-f} illustrates this scenario. As you can see in the figure some shapes can be mapped, like the first two,
-and other can't, like the third, in this case due to the cardinality not following the \cref{eq:constraint}.
+and other can't, like the third, in this case due to the cardinality not following the \cref{eq:shape-reduction}.
 
 \begin{figure}
-    \includegraphics{images/shex-lite-mapping.pdf}
+    \includegraphics[scale=0.5]{images/shex-lite-mapping.pdf}
     \centering
     \caption[Mapping function from ShEx to Plain Object]{Mapping function from ShEx to Plain Object.}
     \label{fig:mapping-f}

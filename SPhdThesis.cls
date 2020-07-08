@@ -228,7 +228,7 @@
 	\clearpage                                 % Fix the page number in TOC.
 	\phantomsection                            % Fix the link in PDF.
 	\addcontentsline{toc}{chapter}{References} % Add the bibliography to TOC.
-	\bibliographystyle{plain}                  % Set the bibliography style.
+	\bibliographystyle{unsrt}                  % Set the bibliography style.
 	\bibliography{#1}                          % Include the bibliography file.
 }
 
@@ -502,7 +502,7 @@
 		\large{\emph{\SgIntAuthorDegrees}} \\
 		\vspace{2.5in}
 
-		\large{\SgIntMakeUpperCase{A Thesis Submitted for the Degree of \SgIntDegree}}
+		\large{\SgIntMakeUpperCase{A Dissertation Submitted for the Degree of \SgIntDegree}}
 		\vspace{0.2in}
 
 		\large{\SgIntMakeUpperCase{\SgIntDepartment}} \\
