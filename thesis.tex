@@ -17,7 +17,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{partconclusion}{Partial Conclusion}[chapter]
 \newtheorem{definition}{Definition}[chapter]
-\newtheorem{researchquestion}{Research Question}
+\newtheorem{researchquestion}{Project Goal}
 \newtheorem{scenario}{Scenario}
 
 % PDF and title properties.
@@ -48,17 +48,19 @@
 	\input{chapters/related-work.tex}
 
 	\part{Enhancing Error and Warning Detection and Emition on ShEx}
-	\input{chapters/current-analyzers-analysis.tex}
-	\input{chapters/proposed-analyzer.tex}
+	\input{chapters/part_1/analyzer-problem.tex}
+	\input{chapters/part_1/analyzer-analysis.tex}
+	\input{chapters/part_1/analyzer-implementation.tex}
 
 	\part{Translating ShEx Schemas to Object Domain Models}
-	\input{chapters/odm-translate.tex}
-	\input{chapters/proposed-system.tex}
+	\input{chapters/part_2/translator-problem.tex}
+	\input{chapters/part_2/translator-analysis.tex}
+	\input{chapters/part_2/translator-implementation.tex}
 
 	\part{Project Sinthesis}
-	\input{chapters/evauation-of-results.tex}
-	\input{chapters/planning-and-budget.tex}
-	\input{chapters/conclusions.tex}
+	\input{chapters/part_3/evauation-of-results.tex}
+	\input{chapters/part_3/planning-and-budget.tex}
+	\input{chapters/part_3/conclusions.tex}
 
 	\part{Annexes and References}
 	\begin{appendices}
