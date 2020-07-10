@@ -53,16 +53,16 @@ that may automatically process that data.
 All the above motivations helped to make RDF the language for the Web of Data, as described in \cite{labra-validating-rdf}.
 And the main features that it presents are: \textit{Disambiguation}, \textit{Integration}, \textit{Extensibility}, \textit{Flexibility} and \textit{Open by Default}.
 With the features also some drawbacks are associated, the most important one and the one we will focus is the RDF
-\textbf{production/consumption dilema}.
+\textbf{production/consumption dilemma}.
 
-RDF production/consumption dilema states that it is necessary to find ways that data producers can generate their data so
+RDF production/consumption dilemma states that it is necessary to find ways that data producers can generate their data so
 it can be handled by potential consumers. For example, they may want to declare that some nodes have some properties with
 some specific values. Data consumers need to know that structure to develop applications to consume the data.
 
 Although RDF is a very flexible schema-less language, enterprise and industrial applications may require an extra level of
 validation before processing for several reasons like security, performance, etc.
 
-To solve that dilema and as an alternative to expecting the data to have some structure without validation, Shape Expressions Language
+To solve that dilemma and as an alternative to expecting the data to have some structure without validation, Shape Expressions Language
 \textit{(ShEx)} was proposed as a human-readable and high-level open source language for RDF validation. Initially ShEx was proposed
 as a human-readable syntax for OSLC Resource Shapes \cite{oslc-resource-shape} but ShEx grew very fast to embrace more
 complex user requirements coming from clinical and library use cases.
@@ -73,15 +73,15 @@ from OSLC Resource Shapes as well, evolved into both a private implementation an
 
 From a user point of view the possibilities of ShEx are very large, from the smallest case to just validate a node with one property
 to a scientific domain case where we need to validate the human genome \textit{(a real use case of ShEx)}. A language with such a number
-of possibilities requieres from a strong sintactic and semantic validation and that leads us to our first goal.
+of possibilities requires from a strong syntactic and semantic validation and that leads us to our first goal.
 
 \begin{researchquestion}
-  How much the existing sintactic and semantic validation systems for shape expressions can be enhanced?
+  How much the existing syntactic and semantic validation systems for shape expressions can be enhanced?
 \end{researchquestion}
 
-Secondly and very related to programing languages, if we take the PopularitY of Programming Language \textit{(PYPL)} Index\footnote{\url{http://pypl.github.io/PYPL.html}}
-from June 2020 we can see that more than half of the share is occupied by languages that support the object orienten paradigm. And therefore this paradigm
-becomes the most used one. The aim of this paradigm is to model real world domains, acocrding to \cite{wegner1990concepts}. That, in fact, is the same goal
+Secondly and very related to programming languages, if we take the PopularitY of Programming Language \textit{(PYPL)} Index\footnote{\url{http://pypl.github.io/PYPL.html}}
+from June 2020 we can see that more than half of the share is occupied by languages that support the object oriented paradigm. And therefore this paradigm
+becomes the most used one. The aim of this paradigm is to model real world domains, according to \cite{wegner1990concepts}. That, in fact, is the same goal
 that ShEx has, it allows to model real world domains with schemas, and validate existing data with them. Therefore our second goal relies on this and tries
 to automatically transform shape expressions into object domain models coded in any language that supports the object oriented paradigm:
 
@@ -109,16 +109,16 @@ These are the major contributions of this dissertation:
   as it is a subset of ShEx, but they accept more structures than the ones defined by ShEx micro Compact Syntax. We propose a parser that
   is only focused on ShEx micro Compact Syntax and therefore error and warning messages can be enhanced.
   
-  \item Error and warning analyzer for schemas. Existing approaches do not semantically validate the schemas, they
+  \item Error and warning analyser for schemas. Existing approaches do not semantically validate the schemas, they
   only perform error detection by means of complex grammars and parsers. Our proposed system does semantically validate the schemas by means
-  of a custom analyzer that performs both sintactic and semantic analysis so it produces human-friendly errors and warnings that users can
+  of a custom analyser that performs both syntactic and semantic analysis so it produces human-friendly errors and warnings that users can
   use to fix their schemas.
 
   \item Automatic translation of schemas in to object domain models in \texttt{Java} and \texttt{Python}. The proposed system
   integrates an open back-end with build-in code translation from the validated schemas to domain models in object
   oriented programming languages \textit{(OOPL)} \cite{oopl}.
 
-  \item Evaluation of errors and warning generated of our proposed soulution against existing tools. This comparison
+  \item Evaluation of errors and warning generated of our proposed solution against existing tools. This comparison
   empirically shows the benefits and drawbacks of our proposed system.
 \end{enumerate}
 
