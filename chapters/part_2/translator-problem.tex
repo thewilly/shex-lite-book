@@ -56,7 +56,20 @@ compare them.
 % S E C T I O N   S H A P E   E X P R E S S I O N S   E X P R E S I V I T Y
 
 \section{Shape Expressions Expressivity}
-To measure the expressiveness of the ShEx micro syntax we will explore its abstract grammar \cref{fig:shex-micro-abstract-grammar}.
+To explore the expressiveness of ShEx micro Compact Syntax we have to look
+at the abstract grammar (\cref{fig:shex-micro-abstract-grammar}) of the syntax.
+In it we will find what we can and what we cannot express. For example we can
+deduce that an schema is a shet of shapes where each is defined as an identifier
+and a set of triple expressions. \cref{fig:prop-def-shape-diagram} shows an example
+of a shape expression coded on its micro compact syntax that defines two properties
+for the object \texttt{:Preson}. In that shape expression we can see that we have a
+property that represents the name with type string and the default cardinality \textit{(1)}.
+And a second property \texttt{knows} whose type is a reference to another person
+and has multiple cardinality so it represents a list of people you know.
+
+However, only with the grammar it would be very difficult
+for us to compare with other expressiveness. For this purpose we will obtain the formalization
+based on the \cite{milutinovic2019exploring} formalization on RDF graphs.
 
 \begin{figure}
 \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\small]
@@ -65,8 +78,8 @@ definition       ::= prefixDef | baseDef | startDef | shapeDef
 prefixDef        ::= ID IRI
 baseDef          ::= IRI
 startDef         ::= SHAPE_REF
-shapeDef         ::= IRI_REF tripleConstraint+
-tripleConstraint ::= IRI_REF constraint CARDINALITY
+shapeDef         ::= IRI_REF tripleExpression+
+tripleExpression ::= IRI_REF constraint CARDINALITY
 constraint       ::= IRI_REF | SHAPE_REF | "IRI" | "BNODE" |
                      "NONLITERAL" | "LITERAL"
 \end{lstlisting}
@@ -74,12 +87,22 @@ constraint       ::= IRI_REF | SHAPE_REF | "IRI" | "BNODE" |
 \label{fig:shex-micro-abstract-grammar}
 \end{figure}
 
-From the grammar we can infer that a shape is defined as an identifier and a set of triple expressions where each
-triple expression is in turn defined as the property, which is a reference to a prefix, the constraint and the
-cardinality. This, therefore, allows us to express that an object can be defined by one or by multiple properties,
-each with a specific type. In addition, each of these properties that define the model can be repeated $n$ times,
-indicated by the cardinality. \cref{fig:prop-def-shape-diagram} shows an example of a shape expression coded on
-its micro compact syntax that defines two properties for the object \texttt{:Preson}.
+Let $U$ be the set of URI-s, $B$ the set of blanks and $L$ the set of literals.
+Let us also define sets, $P=U$, $T_{rdf} = U \cup B \cup L$ and $C = \{ (n,m) \mid n,m \in \mathbb{N}, n\leq m\}$.
+Then a triple expression is defined as
+\begin{equation}
+(p,t_{rdf},c) \in P \times T_{rdf} \times C,
+\end{equation}
+where $p$ represents the property, $t$ the node constraint and $c$ the cardinality. A shape
+\begin{equation}
+s \subseteq P \times T_{rdf} \times C
+\end{equation}
+is a set of triple expressions which implies that an schema
+\begin{equation}\label{eq:exp-shape}
+S=\{s \mid s \subseteq P \times T_{rdf} \times C\}
+\end{equation}
+is a set of shapes. Thus, the expresivity of a shape expressions schema will be given by $P \times T_{rdf} \times C$.
+Therefore, $e(shex\ micro\ syntax) = P \times T_{rdf} \times C$.
 
 \begin{figure}
     \includegraphics[scale=0.7]{images/shex-example-parts.pdf}
@@ -88,30 +111,10 @@ its micro compact syntax that defines two properties for the object \texttt{:Pre
     \label{fig:prop-def-shape-diagram}
 \end{figure}
 
-In that shape expression we can see that we have a property that represents the name with type string and the default cardinality \textit{(1)}.
-And a second property \texttt{knows} whose type is a reference to another person and has multiple cardinality so it represents a list of people you know.
-
-So we have just seen that a shape, in its reduced grammar is a set of triple expressions made up of the property, the type and the cardinality,
-therefore we can formalize that a shape is defined as,
-
-\begin{equation}\label{eq:shape-formalization}
-\begin{gathered}
-S = \{ (p_{1},t_{1},c_{1}),\ (p_{2},t_{2},c_{2}),\ \dots,\ (p_{n},t_{n},c_{n})\ |\ p \in String,\\
-t \in RDF\ Type,\ c \in \{[0,0],\ ...,\ [\infty,\infty] \} \}
-\end{gathered}
-\end{equation}
-
-where $p \rightarrow property\ name$, $t \rightarrow type$ and $c \rightarrow cardinality$.
-And therefore an schema is defined as,
-
-\begin{equation}\label{eq:schema-formalization}
-SC = \left \{ S_1,\ S_2,\ \dots,\ S_n \right \}
-\end{equation}
-
 
 % S E C T I O N   P L A I N   O B J E C T S   E X P R E S I V I T Y
 
-\section{Plain Objects Expressivity}
+\section{Plain Objects Expressivity}\label{sec:poe}
 Plain objects can be coded in any object oriented programming language, or at least in
 any language that supports this paradigm. First we will explore how plain objects are 
 generally coded, then how the language increases or decreases the expressivity and
@@ -138,27 +141,7 @@ language that includes lots of features.
 \cref{fig:shex-translate-small}. For example if we analyze the Java fragment, that seems to be the most complex
 one out of the three fragments we can see in \cref{fig:java-analysis} that it is composed by the \textit{Schema Name},
 the \textit{List of Type Annotated Properties} and some \textit{Language Specific Code}. This corelates to the other
-two programming languages as they also contain this three elements. Therefore after this brief analysis we can generalize that,
-
-\begin{equation}\label{eq:plain-object}
-\begin{gathered}
-PO = \{ (p_{1}, t_{1}),\ (p_{2}, t_{2}),\ \dots,\ (p_{n}, t_{n})\ |\ p \in String,\\
-t\in Language\ Specific\ Type\ System \} + lsc
-\end{gathered}
-\end{equation}
-
-where $p \rightarrow property\ name$, $t \rightarrow type$ and $lsc \rightarrow language\ specific\ code$.
-And therefore a model based on plain objects is defined as,
-
-\begin{equation}\label{eq:plain-object-model}
-MO = \{ PO_1,\ PO_2,\ \dots,\ PO_n \}
-\end{equation}
-
-where $PO$ represents the plain object.
-
-It is important to note that part of that language-specific code is responsible for representing the language-specific type system.
-Therefore, before formalizing our generalization, we must explore whether the type system of a language affects its expressiveness
-and, if so, find those types that are common to most languages of this type, if any.
+two programming languages as they also contain this three elements.
 
 \begin{figure}
     \includegraphics[scale=0.2]{images/java-analysis.png}
@@ -166,6 +149,29 @@ and, if so, find those types that are common to most languages of this type, if 
     \caption[Java plain object decomposition.]{Java plain object decomposition.}
     \label{fig:java-analysis}
 \end{figure}
+
+It is important to note that although the composition of the property identifiers may
+vary a little in each programming language, the type system is specific and sure to
+change in each language. This is why we must explore to what extent it affects the
+type system of each language. And if, therefore, it can be generalized.
+
+\subsection{Plain Objects Formalization}
+In order to compare the expressiveness of plain objects with other systems, we will carry out a
+formalization based on their structure and content. Let $N$ be the set of all possible variable
+identificators in a programing language and $T_{pl}$ the set of all possible types in a programming
+language. Then a type annotated property is defined as
+\begin{equation}
+(n,t_{pl}) \in N \times T_{pl},
+\end{equation}
+where $n$ is the identifier of the property and $t_{pl}$ the specific programing language type. That implies that a plain object
+\begin{equation}
+c \subseteq N \times T_{pl}.
+\end{equation}
+is a set of type annotated properties. Thus, an object domain model
+\begin{equation}\label{eq:exp-m}
+M = \{ c \mid c \subseteq N \times T_{pl} \}.
+\end{equation}
+is a set of plain objects. Therefore, $e(plain\ objects) = N \times T_{pl} $.
 
 \subsection{Plain Objects Language Expressivity Dependance}
 In \cref{fig:person-codings} we can see that all of three languages use similar types to represent the Person model. But with
@@ -254,64 +260,26 @@ used type system and the standard of w3c. This leads us to the generalization fr
 
 \section{Shape Expressions and Plain Objects Expressivity Comparison}
 
-Previous section cover the expressivity of Shape Expressions and Plain Objects, in this section we compare both expressivities and
-expose if both expresivities are fully compatible or not. In \cref{eq:schema-formalization} we defined an schema and our aim to find if it is possible
-to define a function $f$ such that $f(schema)\rightarrow model$ where $model$ is defined in \cref{eq:plain-object-model}. To achieve this function, it
-is necessary that the expressiveness of the origin be less than or equal to that of the destination and now that we have already defined the
-expressivities of each system we can compare them.
+Previous section cover the expressivity of Shape Expressions and Plain Objects.
+In this section we compare both expressivities and expose if both expresivities
+are compatible or not. \cref{eq:exp-shape} showed that the expressiveness of the
+schemes depends on $P \times T_{rdf} \times C$. Meanwhile \cref{eq:exp-m} showed
+that the expressivity of object domain models depends on $P \times T_{pl}$. In
+\cref{sec:poe} we restrict the types that a plain object property might have.
+Let $T_g$ be the set of all allowed types in a plain object $\{ Real, List_{T_g}, String, Boolean, Reference \}$.
+Then, $e(plain\ objects) = N \times T_g$. We will compare now if $P \times T_{rdf} \times C = N \times T_g$.
+For that purpose we will compare each space separetly to see if they represent the same.
 
-Let's simplify the problem by eliminating all those common factors that we have in both systems. For example, from \cref{eq:schema-formalization} and \cref{eq:plain-object-model}
-we have lists of properties with something else, let's reduce the case to having a single property with something else like,
-\begin{equation}
-\begin{gathered}
-\{p,\ t,\ c\ |\ p \in String,\ t \in RDF\ Type,\ c \in \{[0,0],\ ...,\ [\infty,\infty] \}\};\\
-\{p,\ t\ |\ p \in String,\ t \in \{String, Real, Boolean, List, Compound\}\}.    
-\end{gathered}
+\begin{equation}\label{eq:restrict-spaces}
+    \left.\begin{matrix}
+        P \rightarrow\ All\ the\ URIs.
+     \\ N \rightarrow\ All\ the\ identifiers.
+     \end{matrix}\right\} N \subseteq P\\
+     \left.\begin{matrix}
+        T_{rdf} \rightarrow\ All\ RDF\ types.
+     \\ T_{g} \rightarrow\ All\ allowed\ plain\ objects\ types.
+     \end{matrix}\right\} T_g \subseteq T_{rdf}\\
 \end{equation}
-Also in both cases we find that the property is a free text that identifies that property, so we eliminate it from the problem. And we are left with,
-\begin{equation}
-\begin{gathered}
-\{t,\ c\ |\ t \in RDF\ Type,\ c \in \{[0,0],\ ...,\ [\infty,\infty] \}\};\\
-\{t\ |\ t \in \{String, Real, Boolean, List, Compound\}\} 
-\end{gathered}
-\end{equation}
-where we need to find if the existis a function $f'$ such that we can map $(t_n,c_n)$ to $(t_n)$.
-
-Now the question changes and what we have to compare is if the $RDF\ Type\ \cap\ \{[0,0],\ ...,\ [\infty,\infty]\}$ can be represented by means of
-$\{String, Real, Boolean, List, Compound\}$. For this purpose we will assign different values inside and outside the ranges that we have defined for each set.
-In addition, we will define the axiom that the cardinality $(0, \infty)\ \cap\ RDF\ Type$ is the same as $List[RDF\ Type]$. So,
-\begin{equation}\label{eq:values-mapping}
-    \begin{aligned}
-(string,(1,1)) & \rightarrow & (string)\\
-(Person,(0,\infty)) & \rightarrow & (List[Person])\\
-(string,(1,2)) & \rightarrow & \times \\
-(Person,(2,\infty)) & \rightarrow & \times \\
-(centimeters,(1,1)) & \rightarrow & \times  
-    \end{aligned}
-\end{equation}
-
-From the values we gave in \cref{eq:values-mapping} we can see that for some cases there is no schema-object equivalence. However, for others there exist
-such and equivalence. Thus, we will define a Subset $S'$ in which we will restrict the types and the cardinality so that those shapes that are defined in
-that subset have an equivalent object. Then,
-
-\begin{equation}\label{eq:shape-reduction}
-\begin{gathered}
-S' = \{ (p_{1},t_{1},c_{1}),\ (p_{2},t_{2},c_{2}),\ \dots,\ (p_{n},t_{n},c_{n})\ |\ p \in String,\\
-t \in \{String, Real, Boolean, Compound\},\ c \in \{[1,1],\ [0,\infty] \} \}.
-\end{gathered}
-\end{equation}
-
-Thus,
-
-\begin{equation}\label{eq:schema-reduction}
-\begin{gathered}
-SC' = \left \{ S'_1,\ S'_2,\ \dots,\ S'_n \right \}.
-\end{gathered}
-\end{equation}
-
-That means that we will not be able to translate everything that can be expressed in ShEx Micro Compact Syntax but also means that we will be able
-to at least translate some of the shapes. \cref{fig:mapping-f} illustrates this scenario. As you can see in the figure some shapes can be mapped, like the first two,
-and other can't, like the third, in this case due to the cardinality not following the \cref{eq:shape-reduction}.
 
 \begin{figure}
     \includegraphics[scale=0.5]{images/shex-lite-mapping.pdf}
@@ -319,3 +287,34 @@ and other can't, like the third, in this case due to the cardinality not followi
     \caption[Mapping function from ShEx to Plain Object]{Mapping function from ShEx to Plain Object.}
     \label{fig:mapping-f}
 \end{figure}
+
+Here we can see that the $C$ has no space to compare with as $s$ does not include any information about this.
+In $s$ instead of using a cardinality there is a list type that represents the cardinality $(0, \infty)$.
+
+From here we see that $e(shex\ micro\ syntax) \not\leq e(plain\ objects)$. So that answers the question.
+As the expressivity of Shape Expressions Micro Compact Syntax is greater than the expressivity of the
+defined Object Domain Models we cannot transform all the existing schemas from $S$ to plain objects from $M$.
+That can be easily proven also by assigning values to S and trying to map them in to $M$. \cref{eq:values-mapping}
+and \cref{fig:mapping-f} illustrate this.
+
+\begin{equation}\label{eq:values-mapping}
+    \begin{aligned}
+(name,string,(1,1)) & \rightarrow & (name,string)\\
+(knows,Person,(0,\infty)) & \rightarrow & (knows,List[Person])\\
+(surname,string,(1,2)) & \rightarrow & \times \\
+(enrolled,Person,(2,\infty)) & \rightarrow & \times \\
+(radious,centimeters,(1,1)) & \rightarrow & \times  
+    \end{aligned}
+\end{equation}
+
+\cref{fig:mapping-f} also illustrates perfectly that there exists some cases where the trasnformation can take
+place. Now we will focus on finding those cases. From \cref{eq:restrict-spaces} we know that both $N \subseteq P$
+and $T_g \subseteq T_{rdf}$ and previously we saw that if $c \in {(1,1), (0,\infty)}$ we can represent that by means
+of the type List. Therefore
+\begin{equation}\label{eq:restriction}
+    \forall\ (p,t,c) \in N \times T_g \times \{(1,1),(0,\infty)\}   
+\end{equation}
+
+both systems share the same expressivity. Which implies that a shape' $s' \subseteq N \times T_g \times \{(1,1),(0,\infty)\}$
+is a set of triple constraints that can be represented as type annotated properties. And therefore
+$S'=\{s \mid s' \subseteq N \times T_g \times \{(1,1),(0,\infty)\} \}$ is equivalent to $M = \{ c \mid c \subseteq N \times T_{g} \}$.
