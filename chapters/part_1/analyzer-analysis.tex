@@ -2,151 +2,195 @@
 \label{ch:proposed-sin-sema-anal}
 After analyzing the existing tools, we can see that different
 aspects of existing technology can be improved, such as those
-discussed in \cref{sec:anal-enhacements}. In this section we will make a proposal
-for a system solution, evaluating each of the aspects to be
-improved and we will model, through use cases and requirements,
-what aspects a system that would like to respond to the analyzed
-problem should meet.
+discussed in \cref{sec:anal-enhacements}. In this chapter we
+model a proposal by means of software engineering techniques.
 
-\section{Enhancement of error messages}
-After analyzing the existing tools, one of the aspects that we have
-observed that can be improved is the content of the error messages.
-\cite{heeren2005top} refers to the most relevant points that an error message must
-have to convey the entire context. First, it must contain the
-location in the form of a file, line and position on the line.
-In addition, it is highly recommended, according to \cite{heeren2005top}, that the
-error context be added, this is the piece of code that generated
-the error. They qualify as essential to give a generic error
-message and if others can be enriched with more information 
-uch as within the code fragment that generated the error,
-which part caused it and why, the better.
+Within these techniques, the process we are going to follow
+to model the proposal is first obtain the use cases through
+the possible improvements detected in the previous chapter.
+From these use cases we will extract the requirements. Once
+the requirements have been extracted, we will proceed to
+design the solution using diagrams.
 
-From everything previously done and from this last small summary we can say
-that a system that wants to improve all these aspects will have to comply
-with the following use cases (\cref{fig:enh-err-use-case}).
+We know that the system will be composed of at least a lexical
+analyzer, a syntactic analyzer, a semantic analyzer and some
+type of message manager to handle errors and warnings.
+
+\section{Error Handler}
+Of the improvements that we observe in \cref{sec:anal-enhacements}, those
+that have to do with the error / warning management
+system are 1, 2 and 6. The following diagram considers
+these use cases in the error / warning management system.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.6]{images/enh-err-use-case.pdf}
+    \includegraphics[scale=0.6]{images/err-hand-use-case.pdf}
     \centering
-    \caption[Use cases extracted from improving error messages]{Use cases extracted from improving error messages.}
-    \label{fig:enh-err-use-case}
+    \caption[Error hanlder use cases]{Error hanlder use cases.}
+    \label{fig:err-hand-use-case}
 \end{figure}
 
-In addition, these use cases emanate or we can extract high-level
-requirements that will help us guide the implementation of the system.
+Thus, from the use cases mentioned in the previous section we
+extract the following functional requirements.
 
 \begin{figure}[h!]
-    \includegraphics[width=\textwidth]{images/enh-err-requirements.pdf}
+    \includegraphics[width=\textwidth]{images/err-hand-reqf.pdf}
     \centering
-    \caption[Requirements extracted from improving error messages]{Requirements extracted from improving error messages.}
-    \label{fig:enh-err-req}
+    \caption[Error hanlder functional requirements]{Error hanlder functional requirements.}
+    \label{fig:err-hand-reqf}
 \end{figure}
 
-\section{Creation of the warning type message}
-Another aspect that can be improved in syntactic and semantic analysis
-is adding a new type of error message that, while not as serious as an
-error, represents an upgradeable aspect of the system. For this purpose,
-the creation of a new type of error message (which implies that it
-should comply with the requirements of the previous point) of the
-warning type is proposed. The following use case models the system that
-should contain this type of error
+From the use cases we can also extract the following interface requirements.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/warn-use-case.pdf}
+    \includegraphics[width=\textwidth]{images/err-hand-reqnf.pdf}
     \centering
-    \caption[Use cases extracted from new warning message type]{Use cases extracted from new warning message type.}
-    \label{fig:warn-use-case}
+    \caption[Error hanlder non functional requirements]{Error hanlder non functional requirements.}
+    \label{fig:err-hand-reqnf}
 \end{figure}
 
-And therefore we can extract the following requirement for a future system.
+For the previous requirements we propose the following modelation for the error management system (\cref{fig:err-hand-diag}).
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/warn-req.pdf}
+    \includegraphics[width=\textwidth]{images/err-hand-diagram.pdf}
     \centering
-    \caption[Requirements extracted from new warning message type]{Requirements extracted from new warning message type.}
-    \label{fig:warn-req}
+    \caption[Error hanlder component and class diagrams]{Error hanlder component and class diagrams.}
+    \label{fig:err-hand-diag}
 \end{figure}
 
-\section{Detection of override definitions}
-As stated in the analysis, it is interesting to be able to include detection of
-definitions that overwrite each other. For this, the use case in which a future
-system will support is defined below.
+
+\section{Lexical Analyzer}
+The lexical analyzer is necessary to subsequently carry out syntactic and semantic analysis.
+And therefore, although it is not contemplated as an improvement in
+the previous chapter, we do have to include it in our proposed system. The following diagram
+shows the expected use cases of a lexical analyzer in our context.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/def-override-use-case.pdf}
+    \includegraphics[scale=0.6]{images/lex-use-case.pdf}
     \centering
-    \caption[Use cases extracted from detection of override definitions]{Use cases extracted from detection of override definitions.}
-    \label{fig:def-overr-use-case}
+    \caption[Lexical analyzer use cases]{Lexical analyzer use cases.}
+    \label{fig:lex-use-case}
 \end{figure}
 
-And therefore we can extract the following requirement for a future system.
+Thus, from the use cases mentioned in the previous section we
+extract the following functional requirements.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/def-override-req.pdf}
+    \includegraphics[width=\textwidth]{images/lex-reqf.pdf}
     \centering
-    \caption[Requirements extracted from detection of override definitions]{Requirements extracted from detection of override definitions.}
-    \label{fig:def-overr-req}
+    \caption[Lexical analyzer functional requirements]{Lexical analyzer functional requirements.}
+    \label{fig:lex-reqf}
 \end{figure}
 
-\section{Detection of undefined references}
-As mentioned in the analysis, the detection of undefined references is
-important to validate a scheme, therefore the use cases and requirements
-to implement a future system are modeled below.
+From the use cases we can also extract the following interface requirements.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/und-ref-use-case.pdf}
+    \includegraphics[width=\textwidth]{images/lex-reqnf.pdf}
     \centering
-    \caption[Use cases extracted from detection of undefined references]{Use cases extracted from detection of undefined references.}
-    \label{fig:und-ref-use-case}
+    \caption[Lexical analyzer non functional requirements]{Lexical analyzer non functional requirements.}
+    \label{fig:lex-reqnf}
 \end{figure}
 
-And therefore we can extract the following requirement for a future system.
+For the previous requirements we propose the following modelation for the lexical analyzer.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/und-ref-req.pdf}
+    \includegraphics[width=\textwidth]{images/lex-diagram.pdf}
     \centering
-    \caption[Requirements extracted from detection of undefined references]{Requirements extracted from detection of undefined references.}
-    \label{fig:und-ref-req}
+    \caption[Lexical analyzer component and class diagrams]{Lexical analyzer component and class diagrams.}
+    \label{fig:lex-diag}
 \end{figure}
 
-\section{Detection of unused resources}
-In order to detect non-used resources, it is not necessary that
-the error message be of type error, it should be of type warning.
-The following use case and requirement model this situation.
+\section{Sintactic Analyzer}
+The parser may not be so necessary if we are looking to improve existing systems, but it is
+necessary to carry out the next step, semantic analysis. To others
+in this step you can also propose some improvement, although less. The following diagram
+shows the expected use cases for a system that wants to implement a sintactic validator.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/unu-res-use-case.pdf}
+    \includegraphics[scale=0.6]{images/sin-use-case.pdf}
     \centering
-    \caption[Use cases extracted from detection of unused resources]{Use cases extracted from detection of unused resources.}
-    \label{fig:unu-res-use-case}
+    \caption[Sintactic analyzer use cases]{Sintactic analyzer use cases.}
+    \label{fig:sin-use-case}
 \end{figure}
 
-And therefore we can extract the following requirement for a future system.
+Thus, from the use cases mentioned in the previous section we
+extract the following functional requirements.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/unu-res-req.pdf}
+    \includegraphics[width=\textwidth]{images/sin-reqf.pdf}
     \centering
-    \caption[Requirements extracted from detection of unused resources]{Requirements extracted from detection of unused resources.}
-    \label{fig:unu-res-req}
+    \caption[Sintactic analyzer functional requirements]{Sintactic analyzer functional requirements.}
+    \label{fig:sin-reqf}
 \end{figure}
 
-\section{Detection of multiple errors / warnings at once}
-In order to meet the objective of detecting multiple errors at the same
-time, any system must meet the following use case and the requirements
-that arise from it.
+From the use cases we can also extract the following interface requirements.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/mul-err-use-case.pdf}
+    \includegraphics[width=\textwidth]{images/sin-reqnf.pdf}
     \centering
-    \caption[Use cases extracted from detection of multiple errors / warnings at once]{Use cases extracted from detection of multiple errors / warnings at once.}
-    \label{fig:mul-err-use-case}
+    \caption[Sintactic analyzer non functional requirements]{Sintactic analyzer non functional requirements.}
+    \label{fig:sin-reqnf}
 \end{figure}
 
-And therefore we can extract the following requirement for a future system.
+For the previous requirements we propose the following modelation for the sintactic analyzer.
 
 \begin{figure}[h!]
-    \includegraphics[scale=0.8]{images/mul-err-req.pdf}
+    \includegraphics[width=\textwidth]{images/sin-diagram.pdf}
     \centering
-    \caption[Requirements extracted from detection of multiple errors / warnings at once]{Requirements extracted from detection of multiple errors / warnings at once.}
-    \label{fig:mul-err-req}
+    \caption[Sintactic analyzer component and class diagrams]{Sintactic analyzer component and class diagrams.}
+    \label{fig:sin-diag}
+\end{figure}
+
+\section{Semantic Analyzer}
+The semantic analyzer is key in our architecture since most of the improvements
+that have to do with finding new types of errors can be identified through semantic
+validations. The following diagram shows the expected use cases for a system that
+wants to implement a semantic validator to solve the above problems.
+
+\begin{figure}[h!]
+    \includegraphics[scale=0.6]{images/sema-use-case.pdf}
+    \centering
+    \caption[Semantic analyzer use cases]{Semantic analyzer use cases.}
+    \label{fig:sema-use-case}
+\end{figure}
+
+Thus, from the use cases mentioned in the previous section we
+extract the following functional requirements.
+
+\begin{figure}[h!]
+    \includegraphics[width=\textwidth]{images/sema-reqf.pdf}
+    \centering
+    \caption[Semantic analyzer functional requirements]{Semantic analyzer functional requirements.}
+    \label{fig:sema-reqf}
+\end{figure}
+
+From the use cases we can also extract the following interface requirements.
+
+\begin{figure}[h!]
+    \includegraphics[width=\textwidth]{images/sema-reqnf.pdf}
+    \centering
+    \caption[Semantic analyzer non functional requirements]{Semantic analyzer non functional requirements.}
+    \label{fig:sema-reqnf}
+\end{figure}
+
+For the previous requirements we propose the following modelation for the semantic analyzer.
+
+\begin{figure}[h!]
+    \includegraphics[width=\textwidth]{images/sema-diagram.pdf}
+    \centering
+    \caption[Semantic analyzer component and class diagrams]{Semantic analyzer component and class diagrams.}
+    \label{fig:sema-diag}
+\end{figure}
+
+\section{Full System Diagram}
+After analyzing and designing each component ahopra we offer a
+complete view of the entire integrated system. In addition
+you can see that a new component appears, the symbol table.
+This component can be any type of structure that fulfills the
+expected basic functions of a symbol table.
+
+\begin{figure}[h!]
+    \includegraphics[scale=0.4]{images/full-diagram.pdf}
+    \centering
+    \caption[Complete system class diagram]{Complete system class diagram.}
+    \label{fig:full-diag}
 \end{figure}
