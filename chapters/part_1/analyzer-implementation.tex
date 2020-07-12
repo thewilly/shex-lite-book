@@ -10,12 +10,12 @@ the proposed solution both in terms of design and possible implementation
 The system is divided into components so that each component works on its input
 and produces its output. In this way, a parser is achieved that behaves like
 an API where each element can be called individually. \cref{fig:shex-lite-sema}
-shows the different components of this analyzer.
+shows the different components of this analyser.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{images/sin-sem-structure.pdf}
     \centering
-    \caption[Sintactic and Semantic Analyzer structure]{Sintactic and Semantic Analyzer structure.}
+    \caption[Syntactic and Semantic Analyzer structure]{Syntactic and Semantic Analyzer structure.}
     \label{fig:shex-lite-sema}
 \end{figure}
 
@@ -33,7 +33,7 @@ and content.
 \begin{figure}
     \includegraphics[width=\textwidth]{images/shex-lite-syntax-tree.pdf}
     \centering
-    \caption[Syntax Tree tweenty first nodes produced by the parser]{Syntax Tree tweenty first nodes produced by the parser.}
+    \caption[Syntax Tree twenty first nodes produced by the parser]{Syntax Tree twenty first nodes produced by the parser.}
     \label{fig:shex-lite-st}
 \end{figure}
 
@@ -42,20 +42,20 @@ For example, in the tree in \cref{fig:shex-lite-st} we could implement a validat
 of a shape definition \textit{(node 16)} did not have the semicolon termination keyword \textit{(node 19)}, it would generate a
 warning message to the user.
 
-\subsection{Sintactic Analyzer}
-The sintactic analyzer is in charge of traversing the syntactic tree in order to search for possible patterns that the user has to
-be informed about. If none were found it would be understood that the syntactic tree is well formed and it will tranform the Syntax Tree
+\subsection{Syntactic Analyzer}
+The Syntactic analyser is in charge of traversing the syntactic tree in order to search for possible patterns that the user has to
+be informed about. If none were found it would be understood that the syntactic tree is well formed and it will transform the Syntax Tree
 \cref{fig:shex-lite-st} into an Abstract Syntax Tree \cref{fig:shex-lite-sema-anal} \textit{(without the green and red relations)}.
 
 For this, each node within our syntactic tree is aware of the context in which it is. Therefore we can ask questions to the nodes,
 such as to a prefix definition \textit{(\cref{fig:shex-lite-st} $n_2$)}, do you have a label? \textit{(No)} or who is the node
-that defines your iri? \textit{(node $n_5$)}. With questions like these, the syntactic tree can be analyzed for patterns that
+that defines your iri? \textit{(node $n_5$)}. With questions like these, the syntactic tree can be analysed for patterns that
 represent warnings or errors.
 
 \subsection{Semantic Analyzer}
-The semantic analyzer is responsible of building all the possible relations between the AST nodes, analyze and check that
-all those relations that must exist indeed exist. For this porpouse as just seen we reduce our Syntax Tree to an
-Abstract Syntax Tree. \cref{fig:shex-lite-sema-anal} Shows a the resulting AST after the correspinding analysis and
+The semantic analyser is responsible of building all the possible relations between the AST nodes, analyse and check that
+all those relations that must exist indeed exist. For this porpoise as just seen we reduce our Syntax Tree to an
+Abstract Syntax Tree. \cref{fig:shex-lite-sema-anal} Shows a the resulting AST after the corresponding analysis and
 transformations, we call this graph the \textit{Intermediate Language}.
 
 \begin{figure}
@@ -66,32 +66,32 @@ transformations, we call this graph the \textit{Intermediate Language}.
     \label{fig:shex-lite-sema-anal}
 \end{figure}
 
-Once we have the representation modeled and this representation is capable of expressing all the assumptions of our language,
+Once we have the representation modelled and this representation is capable of expressing all the assumptions of our language,
 we can begin to apply validators on our structure. For example if we wanted to find broken references we could go to the nodes
 that are a reference to definitions like nodes $n_{\:5,\:7\:and\:8}$ and check that there is indeed a valid reference for each of them.
 
-Furthermore, we can even analyze how many times a definition is used by a reference so that we can launch messages warning the end user
+Furthermore, we can even analyse how many times a definition is used by a reference so that we can launch messages warning the end user
 in some cases, such as when a prefix is not used.
 
 \section{Implementation}\label{sec:anal-implementation}
-As proof of concept of the previous proposal we offer an implementation of the three components, the parser, the sintactic analyzer
+As proof of concept of the previous proposal we offer an implementation of the three components, the parser, the Syntactic analyser
 and the semantic parser. The implementation is defined in the same way as the structure, in three parts. We will now explore each
 of those parts and their responsibilities separately.
 
 \subsection{Parser}
-As previously discussed, the function of the parser is to extract a syntactic tree from the diagrams that we can analyze.
-For this purpose we decided to use the Antlr tool \cite{parr1995antlr}. This tool is capable of generating sintactic analyzers
+As previously discussed, the function of the parser is to extract a syntactic tree from the diagrams that we can analyse.
+For this purpose we decided to use the Antlr tool \cite{parr1995antlr}. This tool is capable of generating Syntactic analysers
 from grammars defined in its own syntax. However, this tool is focused on completely processing the syntax tree and producing
 only the abstract syntax tree. Therefore we had to use a modification of the original ShEx micro Compact Syntax syntax so that
 Antlr would produce a tree with all the syntactic content. This also does offer the flexibility that in the future if we want to
 implement any additional syntactic validation we simply have to do it on the tree that the parser generates for
 us and not on the Antlr code.
 
-\subsection{Sintactic Analizer}
-The sintactic analyzer has the responsibility to validate that the parser produced syntax tree is correct and to build the abstract syntax
+\subsection{Syntactic Analyser}
+The Syntactic analyser has the responsibility to validate that the parser produced syntax tree is correct and to build the abstract syntax
 tree as well. To do this, it uses the same mechanism. Through the visitor pattern we go through our syntax tree. Each implementation
 of this visitor has a purpose, for example an implementation can go through a few specific nodes to validate them syntactically
-while another can go through them in order to build the AST. \cref{fig:checker-example} shows an example of how a sintactic check is
+while another can go through them in order to build the AST. \cref{fig:checker-example} shows an example of how a Syntactic check is
 implemented.
 
 \begin{figure}
@@ -134,7 +134,7 @@ warning[W005]: missing semicolon
                              but its usage its encouraged as otherwise your code wont be
                              following shape expressions specification.
     \end{lstlisting}
-    \caption[Sintactic warning produced by the proposed sintactic analyzer]{Sintactic warning produced by the proposed sintactic analyzer.}
+    \caption[Syntactic warning produced by the proposed Syntactic analyser]{Syntactic warning produced by the proposed Syntactic analyser.}
     \label{fig:sin-err-example}
 \end{figure}
 
@@ -145,10 +145,10 @@ warning[W005]: missing semicolon
     \label{fig:shex-lite-node-info}
 \end{figure}
 
-\subsection{Semantic Analizer}
-Recall that the semantic analyzer takes the generated AST, runs it in search of errors and transforms it in such a way that
+\subsection{Semantic Analyser}
+Recall that the semantic analyser takes the generated AST, runs it in search of errors and transforms it in such a way that
 it emits a graph that corresponds to the intermediate language. We can separate semantic analysis into two phases, a first
-one in which we transform our syntactic tree, adding possible relationships. And a second phase in which we analyze existing
+one in which we transform our syntactic tree, adding possible relationships. And a second phase in which we analyse existing
 and created relationships.
 
 \subsubsection{Tree transformations}
@@ -157,22 +157,22 @@ direction to indicate that a definition is being referenced by a node. The trans
 
 \begin{itemize}
     \item \textbf{Linking prefix definition with prefix references.} Prefix references occurs when a node describes itself as
-    the composition of a prefix and an argument. The idea is that the prefix subtitute the IRI, but must be linked as any
+    the composition of a prefix and an argument. The idea is that the prefix substitute the IRI, but must be linked as any
     prefix reference needs to point to an existing definition.
     \item \textbf{Linking base definition with base references.} Some nodes are defined as relative IRIs to the base definition
     and therefore need to be linking to them in order to be able to get that base IRI.
     \item \textbf{Linking shape definition with a shape reference.} Shape definitions can be used at the \texttt{start} definition
-    to point the deafult shape or as type constraints in the triple constraints. At any of those points shape references must
+    to point the default shape or as type constraints in the triple constraints. At any of those points shape references must
     exist within the scope of an schema.
 \end{itemize}
 
 \subsubsection{Tree relations analysis}
-For this purpose, the semantic analizer defines the visitor pattern on the nodes of the abstract syntax tree so that each of the different
+For this purpose, the semantic analyser defines the visitor pattern on the nodes of the abstract syntax tree so that each of the different
 analysis is done with a tree visiting implementation. Some of the 
 
-\section{Sintactic and Semantic Error and Warnings Detected}
+\section{Syntactic and Semantic Error and Warnings Detected}
 With the solution proposed in the previous section, our system is capable of detecting and reporting multiple syntactic
-and / or semantic errors. In this section we will analyze the rules that generate each type of event and the different
+and / or semantic errors. In this section we will analyse the rules that generate each type of event and the different
 error messages produced for each of them.
 
 \subsection{Not trailing semicolon at last triple constraint}
@@ -183,7 +183,7 @@ indicating the position through file, line, column and context, which is sent to
 the corresponding format to print the message. \cref{fig:sin-err-example} shows an example of this message.
 
 \subsection{Prefix not defined}
-These types of events happen when we use a referecnai to a prefix and this has not been defined in the scope of the schema.
+These types of events happen when we use a reference to a prefix and this has not been defined in the scope of the schema.
 In the event that this happens we have an error that we cannot recover from since we cannot associate the reference to anything.
 
 In order to detect this assumption, all the prefix definitions have to be traversed previously and for each one of them,
@@ -193,7 +193,7 @@ in the symbol table and then a pointer to the corresponding definition node is a
 a definition cannot be found in the symbol table, then an error message like \cref{fig:err-non-def-pref} is created.
 
 For example in the \cref{fig:shex-lite-sema-anal} the red lines would be the transformations done to the original AST to
-add the pointers to the referece nodes that point to the definition nodes.
+add the pointers to the reference nodes that point to the definition nodes.
 
 \begin{figure}
     \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\scriptsize]
@@ -231,7 +231,7 @@ error[E008]: shape not defined
     \label{fig:err-non-def-shape}
 \end{figure}
 
-\subsection{Prefix overriden}
+\subsection{Prefix overridden}
 We say that a prefix is overwritten when we come across a second prefix definition that tries to assign any
 value to a prefix that had already been defined previously.
 
@@ -253,7 +253,7 @@ error[E003]: attempt to override an already defined prefix
     \label{fig:err-override-prefix}
 \end{figure}
 
-\subsection{Shape overriden}
+\subsection{Shape overridden}
 The case of a shape expression overwriting is slightly less trivial in that a shape is identified as the
 union of an existing prefix and a unique identifier within the ambit of that prefix. Therefore, the way
 of acting will be (assuming that the prefix exists, if it would not be another error) check if a shape

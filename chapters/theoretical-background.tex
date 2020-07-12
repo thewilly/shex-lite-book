@@ -41,12 +41,12 @@ triples can be use to compose a graph, this graph represents the same as the \cr
 <http://example/bob> <http://example/knows> <http://example/alice> .
 <http://example/alice> <http://example/knows> <http://example/peter> .
 \end{lstlisting}
-\caption[RDF N-Triples Graph Example]{RDF N-Triples Graph Example. This exmaple shows the n-triples
+\caption[RDF N-Triples Graph Example]{RDF N-Triples Graph Example. This example shows the n-triples
 that generate the graph from \cref{fig:rdf-graph}.}
 \label{fig:rdf-ntriples-graph}
 \end{figure}
 
-This linking structure forms a directed, labeled graph, where the edges represent the named link
+This linking structure forms a directed, labelled graph, where the edges represent the named link
 between two resources, represented by the graph nodes. This graph view is the easiest possible
 mental model for RDF and is often used in easy-to-understand visual explanations.
 
@@ -116,7 +116,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
 }
 \end{lstlisting}
 \caption[Shape Expression Example]{Shape Expression Example. This example describes a shape expression that
-describes a user as a node that has one name of type string, an optional bithd date of type date, one gende
+describes a user as a node that has one name of type string, an optional birth date of type date, one gender
 of type Male, Female or free string and a set between 0 and infinite of other users represented by the knows
 property.}
 \label{fig:shape-expr-ex}
@@ -140,7 +140,7 @@ are similar to Turtle or SPARQL.
     as \texttt{MININCLUSIVE}.
 \end{itemize}
 
-A ShExC document declares a ShEx schema. A ShEx schema is a set of labeled shape expressions which are composed
+A ShExC document declares a ShEx schema. A ShEx schema is a set of labelled shape expressions which are composed
 of node constraints and shapes. These constrain the permissible values or graph structure around a node in an RDF
 graph. When we are considering a specific node, we call that node the focus node.
 
@@ -163,7 +163,7 @@ elements, the property, the node constraint and the cardinality.
   \label{shex-triple-expression}
 \end{figure}
 
-Shape Expressions Compact Syntax is much bigger and containts other multiple features that give ShEx its power,
+Shape Expressions Compact Syntax is much bigger and contains other multiple features that give ShEx its power,
 and all of them can be explored in \cite{labra-validating-rdf} but they are not needed to understand this
 dissertation.
 
@@ -259,18 +259,18 @@ end everything can be group into any of the groups that we will explain:
   \label{fig:compiler-stages}
 \end{figure}
 
-\subsubsection{Lexycal Analyzer}
-The lexical analyzer task is to get the input and split it in to tokens \cite{lexical-analysis}, which are build
+\subsubsection{Lexical Analyzer}
+The lexical analyser task is to get the input and split it in to tokens \cite{lexical-analysis}, which are build
 from lexemes. If the compiler cannot find a valid token for some lexemes in the source code will generate an error,
 as the input cannot be recognized.
 
 \subsubsection{Syntactic Analyzer}
-The syntactic analyzer takes the tokens generated during the lexical analysis and parses them in such a way that try’s
+The syntactic analyser takes the tokens generated during the lexical analysis and parses them in such a way that try’s
 to group tokens so the conform to the language grammar rules. During this stage if there is any error while trying to
 group the tokens then the compiler will rise an error as the input cannot be parsed.
 
 \subsubsection{Semantic Analyzer}
-The semantic analyzer has two main tasks, usually. First it validates that the source code semantics are correct, for
+The semantic analyser has two main tasks, usually. First it validates that the source code semantics are correct, for
 example 4 + “aaa” would not make sense. And the second task is to transform the Abstract Syntax Tree in to a type-checked
 and annotated AST. Usually that means relate the invocations and variables to its definition, very useful for type-checking.
 
@@ -294,7 +294,7 @@ but it presents some drawbacks:
     another for the final compilation of the program itself. This lead to several problems like that if a feature gets
     implemented in the final compilation compiler but not in the IDE one the IDE would not support the feature meanwhile
     the language would.
-    \item Difficult to debug. As the conventional compilers where a blackbox the only way to test intermediate stages was
+    \item Difficult to debug. As the conventional compilers where a black box the only way to test intermediate stages was
     by throwing an input and waiting the the feature you wanted to test was thrown for that input.
 \end{itemize}
 

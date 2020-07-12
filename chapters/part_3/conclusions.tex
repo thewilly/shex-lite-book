@@ -1,37 +1,62 @@
 \chapter{Conclusions}
 \label{ch:conclusions}
-The analysis methods proposed for shape expressions can be used to perform lexical,
-syntactic and grammar analyzes that can be used to build tools such as development
-environments or compilation servers for shape expressions. In addition, it has been
-shown that shape expressions can be integrated with object-oriented programming
-languages. This proposal is materialized in ShEx-Lite, an infrastructure proposed
-as a tradoctor where the analysis phase includes all the proposed methods and where
-the synthesis phase applies the proposed transformation methods.
+The proposed analysis methods based on static syntactic and semantic analysis
+techniques can be used to build different tools for software development, such
+as development environments. Furthermore, after evaluating the results, we observe
+that up to 90\% of ShEx users can benefit from the techniques described. And that
+tools like RDFShape, YASHE or ShEx.js can adopt the techniques described here to
+improve their static code analysis capabilities.
 
-After evaluating the ShEx-Lite system with respect to the rest of the identified systems,
-it can be seen that the content of the representations that other systems use to carry
-out their analyzes can be enriched, so that with a better representation, better
-validation can be performed.
+The analysis and proposed methods for transforming
+schemas into models based on object-oriented technologies can be used to link
+schemas made through Shape Expressions with business applications. An example
+of this is the European project ASIO Hercules. Where the system proposed in
+this document is used to automatically join an ontology with Java-based applications.
+The results obtained in the ASIO Hercules European project have resulted in the paper \textit{"ASIO: a Research
+Management System based on Semantic technologies"} sent to the CIKM\footnote{\url{https://www.cikm2020.org/}} 2020 conference.
+In it, among other things, it explains the key role of the system proposed in this
+dissertation to unite an Ontological Infrastructure with a Semantic Architecture.
 
-Another important aspect to emphasize is that after evaluation we realize that the
-communication system for syntactic and semantic errors of other systems may benefit
-from this work.
-
+The two solutions, the analyser and the translator, are embodied in a single system
+called ShEx-Lite that includes the implementation of lexical, syntactic and semantic
+analysers. And as code generation, translation into object-oriented languages. This
+system has given as one of its results the article "ShEx-Lite: Automatic generation
+of domain object models from Shape Expressions" that has been sent to the ISWC20\footnote{\url{https://iswc2020.semanticweb.org/}}
+conference.
 
 \section{Future Work}
-Currently both proposed solutions are based on the reduced ShEx grammar,
-therefore the first future work we identify is to be able to bring the philosophies
-described in this work to the full ShEx grammar, so that the improvements described
-can benefit all users of the language.
+This work opens new future lines of research that we plan to work on.
+What follows is a brief description of such works.
 
-The next step would be to expand the range of the static analysis of shape expressions
-so that it supports more elements of the grammar so that all the elements that make
-up a shape, their dependencies and relationships can be analyzed in much more detail.
+\subsection{Implementation of New Analyses}
+Currently we do not have an existing documentation on the most common errors
+in ShEx and therefore it is difficult to generate new analyses, it is not known
+what to look for. However, with the methods exploited in this project, you can
+start, for example, to explore all open source schemes. From them obtain data
+that serves to develop documentation on the most common errors or new analyses.
 
-\begin{itemize}
-    \item One of the next steps is to adapt the proposed solution to generate code so
-    that it reads a new form expressions syntax oriented to tabular formats. For this
-    proposal, regular meetings are being held with the Dublin Core Metadata Initiative
-    team, which is the driving force behind this new syntax.
+\subsection{Automatic Error Fixing}
+The described system detects errors and locates them at a specific point in the
+representation, through pattern recognition. The next step, once we have automatically
+detected the errors, would be to develop a system that automatically corrects these
+errors by means of transformations on the representations.
 
-\end{itemize}
+\subsection{Machine Learning to Recognize Patters}
+As explained in \cite{bigcode}, systems based on machine learning can be trained with
+our intermediate schema representations, and then automatically classify the schemas
+according to the training criteria.
+
+This opens the door to new lines of research, since the representation of the
+schemas must be modified without affecting its semantics.
+
+\subsection{New Input Syntaxes for Translation to Aspect Oriented Languages}
+As a line of future research but it is already underway. The Dublin Core research group
+is working on defining a ShEx Micro based syntax with tabular representation, mainly
+spreadsheets. This would allow to attract a much larger user base. As a proposal of
+the group itself is to include this syntax as input to our ShEx-Lite system in order
+to enhance all analytics and generation. For this we hold telematic meetings every
+other Wednesday.
+
+\subsection{New Target Languages}
+ShEx-Lite only generates Java and Python code. However, adding the ability to generate
+in new programming languages would increase the ability to integrate with more systems.

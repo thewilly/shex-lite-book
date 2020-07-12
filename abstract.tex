@@ -1,29 +1,27 @@
 \begin{abstract}
-Surface integration is an important step for automatic 3D reconstruction of real objects.
-The goal of a surface integration algorithm is to reconstruct a surface from a set of range
-images registered in a common coordinate system. Based on the surface representation used,
-existing algorithms can be divided into two categories: volume-based and mesh-based.
-Volume-based methods have been shown to be robust to scanner noise and small features
-(regions of high curvature) and can build water tight models of high quality. It is, however,
-difficult to choose the appropriate voxel size when the input range images have both small
-features and large registration errors compared to the sampling density of range images.
-Mesh-based methods are more efficient and need less memory compared to volume-based methods
-but these methods fail in the presence of small features and are not robust to scanning noise.
+Huge volumes of data are generated every day at high speeds.
+In addition, these data tend to come from very varied sources
+and therefore have heterogeneous structures. RDF was proposed as a
+graph-based data model. It relies on the global nature
+of URIs to solve the integration of produced data
+by different sources. However RDF by itself does not allow to validate
+that a graph complies with a contract or structure. That is why the
+technology called Shape Expressions was born. Through Shape Expressions
+an RDF graph can be validated against a certain schema.
+So with a set of Shape Expressions you can
+describe a domain model of a RDF data set. This technology is supported by an active community that has developed
+tools such as development environments, RDF validators, inference systems, etc ...
 
-This paper presents a robust algorithm for mesh-based surface integration of a set of range
-images. The algorithm is incremental and operates on a range image and the model reconstructed
-so far. Our algorithm first, transform the model in the coordinate system of the range image.
-Then, it finds the regions of model overlapping with the range image. This is done by shooting
-rays from the scanner, through the vertices in the range image and intersecting them with the
-model. Finally, the algorithm integrates the overlapping regions by using weighted average of
-points in the model and the  range image. The weights are computed using the scanner uncertainty
-and helps in reducing the effects of scanning noise. To handle small features robustly the
-integration of overlapping regions is done by computing the position of vertices in the range
-image along the scanner's line of sight. Since for every point in a range image there is exactly
-one depth value, the reconstructed surface in the regions of high curvature will not have
-self-intersections.
+In this work, on one hand, a static analysis system is proposed. From which
+up to 90\% of current Shape Expressions users can benefit. It is based on
+lexical, syntactic and semantic analysis that improves the detection and reporting system for
+errors and warnings. On the other hand, as Shape Expressions has as
+purpose to model a domain and this is the same purpose as what the
+object-oriented programming languages have, is proved and shown to be
+possible to implement a system that automatically translates up to 50\% of the
+existing shapes from GitHub to object oriented languages.
 
 \bigskip
-\textbf{Keywords ---} \textit{RDF, Linked Data, RDF Validation, Shape Expressions, Lexical-Sintactic and
+\textbf{Keywords ---} \textit{RDF, Linked Data, RDF Validation, Shape Expressions, Lexical-Syntactic and
 Semantic Validator, Object Oriented Programming Languages, Compiler, Translator.}
 \end{abstract}

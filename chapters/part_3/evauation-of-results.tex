@@ -114,15 +114,17 @@ error parsing input schema:
 
 \begin{table}
   \centering
-  \caption[Comparison of information provided in error and warning messages]{Comparison of information provided in error and warning messages.}
+  \caption[Comparison of information provided in error and warning messages]{Comparison of information provided in error and warning messages
+  by ShEx-Lite, RDFShape (shaclex), YASHE and ShEx.js. The $\times$ symbol indicates that contains that feature, blank if does not contain the feature.}
   \label{tb:errors-q-results}
-  \resizebox{\textwidth}{!}{\begin{tabular}{c|c|c|c|c|c|c}
-    & \begin{tabular}[c]{@{}c@{}}Source\\ File\end{tabular} & \begin{tabular}[c]{@{}c@{}}Line\\ Number\end{tabular} & \begin{tabular}[c]{@{}c@{}}Column\\ Number\end{tabular} & \begin{tabular}[c]{@{}c@{}}Code\\ Snipet\end{tabular} & \begin{tabular}[c]{@{}c@{}}Message\\ Title\end{tabular} & \begin{tabular}[c]{@{}c@{}}Message\\ Description\end{tabular} \\ \hline
-ShEx-Lite & $\times$                                              & $\times$                                              & $\times$                                                & $\times$                                              & $\times$                                                & $\times$                                                      \\ \hline
-RDFShape  &                                                       &                                                       &                                                         &                                                       & $\times$                                                &                                                               \\ \hline
-YASHE     &                                                       &                                                       &                                                         &                                                       & $\times$                                                &                                                               \\ \hline
+  \begin{tabular}{ccccccc}
+    \hline\hline
+    System & \begin{tabular}[c]{@{}c@{}}Source\\ File\end{tabular} & \begin{tabular}[c]{@{}c@{}}Line\\ Number\end{tabular} & \begin{tabular}[c]{@{}c@{}}Column\\ Number\end{tabular} & \begin{tabular}[c]{@{}c@{}}Code\\ Snipet\end{tabular} & \begin{tabular}[c]{@{}c@{}}Message\\ Title\end{tabular} & \begin{tabular}[c]{@{}c@{}}Message\\ Description\end{tabular} \\ \hline
+ShEx-Lite & $\times$                                              & $\times$                                              & $\times$                                                & $\times$                                              & $\times$                                                & $\times$                                                      \\ 
+RDFShape  &                                                       & $\times$                                              & $\times$                                                &                                                       & $\times$                                                &                                                               \\ 
+YASHE     &                                                       & $\times$                                              & $\times$                                                &                                                       & $\times$                                                &                                                               \\ 
 ShEx.js   &                                                       &                                                       &                                                         &                                                       & $\times$                                                &                                                              
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 From the results, we interpret that all the existing tools, although they really

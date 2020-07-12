@@ -7,11 +7,11 @@ making the necessary transformations. While the synthesis starts from a high qua
 appropriate transformations to reach the target representation. In the case of our solution we have a difference
 and that is that we do not have a single target but multiple ones (\cref{fig:translator}).
 
-In addition to this, in \cref{ch:proposed-sintactic-semantic-analyzer}, we have already developed a system capable of analyzing,
+In addition to this, in \cref{ch:proposed-implementation}, we have already developed a system capable of analysing,
 validating and transforming source code so that we obtained an intermediate language made up of a
 high-quality graph. Therefore in our translator we will reuse the lexical, syntactic and semantic
-analyzer from \cref{ch:proposed-sintactic-semantic-analyzer}, that makes the front end of our translator.
-And thenm, what we will truly develop in this section, is the back-end of the translator.
+analyser from \cref{ch:proposed-implementation}, that makes the front end of our translator.
+And then, what we will truly develop in this section, is the back-end of the translator.
 
 \begin{figure}
     \includegraphics{images/translator.pdf}
@@ -20,21 +20,21 @@ And thenm, what we will truly develop in this section, is the back-end of the tr
     \label{fig:translator}
 \end{figure}
 
-\subsection{Translator Back-end}
+\section{Translator Back-end}
 In our solution, the back-end of the translator, also called the synthesis phase,
-fulfills two main functions. On one hand, it analyzes the intermediate language
+fulfils two main functions. On one hand, it analyses the intermediate language
 in search of some specific incompatibility with the target language. And on the
 other hand, it generates the specific code for the target language.
 
 To perform the analysis of the intermediate language and through the Visitor pattern,
 a graph path is implemented that validates that no node or set of nodes
-violate the restrictions obtained in \cref{eq:schema-reduction}. The visitor that is implemented is
-completely reused from the one developed for the Syntax or Semantic analysis in \cref{ch:proposed-sintactic-semantic-analyzer}.
+violate the restrictions obtained in \cref{eq:restriction}. The visitor that is implemented is
+completely reused from the one developed for the Syntax or Semantic analysis in \cref{ch:proposed-implementation}.
 
 For code generation, it is proposed to carry out an implementation of the Visitor pattern for each of the specific code generators,
-each one of the specific implementations will perform the transformation function described in \cref{eq:transformation-f},
+each one of the specific implementations will perform the transformation function described in \cref{eq:transformation},
 without prejudice to the fact that each specific code generator may have more implementations of the visitor associated.
-\cref{fig:class-diagram-cg} illustrates this situation where the Java code generartion visitor actually contains four more visitors
+\cref{fig:class-diagram-cg} illustrates this situation where the Java code generation visitor actually contains four more visitors
 one for each language specific level of the plain objects.
 
 \begin{figure}
@@ -64,15 +64,15 @@ class with the code that appears at the \texttt{Person.java} file, also in \cref
 This system
 will be used for evaluating the proposed solution.
 
-\section{Generated Obejcts}
+\section{Generated Objects}
 In this section we will give real examples of use cases in which the proposed system has been used to generate objects,
 in addition we will study the objects in order to estimate their quality.
 
-\subsection{Real (Hércules ASIO European Project)}
+\subsection{Real (Hercules ASIO European Project)}
 In the framework of the European project Hercules ASIO, financed with FIVE MILLION FOUR HUNDRED SIXTY-TWO THOUSAND SIX HUNDRED
 euros, the system described is used to link two parts of the architecture, the ontological infrastructure and the semantic 
 infrastructure. The Hercules project tries to find a solution based on linked data to manage the research framework
-in Spanish universities. Some examples of the obejects generated in this project are \cref{fig:example-2} and \cref{fig:example-3}.
+in Spanish universities. Some examples of the objects generated in this project are \cref{fig:example-2} and \cref{fig:example-3}.
 
 \begin{center}
 	\noindent\begin{minipage}[t]{.4\textwidth}
@@ -102,7 +102,7 @@ public class University {
 }
 		\end{lstlisting}
 	\end{minipage}
-	\captionof{figure}{Schema modeling a \texttt{University} in \texttt{shexl} syntax to the left. And the \texttt{ShEx-Lite} generated code in \texttt{Java} to the right.}
+	\captionof{figure}{Schema modelling a \texttt{University} in \texttt{shexl} syntax to the left. And the \texttt{ShEx-Lite} generated code in \texttt{Java} to the right.}
 	\label{fig:example-2}
 \end{center}
 
@@ -137,7 +137,7 @@ public class University {
 }
 		\end{lstlisting}
 	\end{minipage}
-	\captionof{figure}{Schema modeling a \texttt{Researcher} in \texttt{shexl} syntax to the left. And the \texttt{ShEx-Lite} generated code in \texttt{Java} to the right.}
+	\captionof{figure}{Schema modelling a \texttt{Researcher} in \texttt{shexl} syntax to the left. And the \texttt{ShEx-Lite} generated code in \texttt{Java} to the right.}
 	\label{fig:example-3}
 \end{center}
 

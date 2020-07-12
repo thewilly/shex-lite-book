@@ -15,8 +15,8 @@ START:              'start';
 IMPORT:             'import';
     
 // Literals
-    
-STRING_LITERAL:         STATIC_STRING_LITERAL;        // Meant to be extended with interpolated text. (from Swift 3)
+// Meant to be extended with interpolated text. (from Swift 3)
+STRING_LITERAL:         STATIC_STRING_LITERAL;
 STATIC_STRING_LITERAL:  '"' Quoted_text? '"';
 IRI_LITERAL:            '<' (~[\u0000-\u0020=<>"{}|^`\\] | Unsigned_character)* '>';
 DECIMAL_LITERAL:        ('0' | [1-9] (Digits? | '_'+ Digits)) [lL]?;
@@ -94,12 +94,14 @@ fragment Escaped_character
  : '\\' [0\\tnr"']
  | '\\x' Hexadecimal_digit Hexadecimal_digit
  | '\\u' '{' Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit '}'
- | '\\u' '{' Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit '}'
+ | '\\u' '{' Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit
+     Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit '}'
  ;
 
 fragment Unsigned_character
  : '\\u' Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit
- | '\\u' Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit  Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit
+ | '\\u' Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit
+     Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit Hexadecimal_digit
  ;
 
 fragment Digits
@@ -216,7 +218,8 @@ constraint_block_triple_expr
  ;
 
 constraint_triple_expr
- : property=call_prefix_expr constraint=constraint_node_expr cardinality=cardinality_expr? SEMI?
+ : property=call_prefix_expr constraint=constraint_node_expr cardinality=cardinality_expr?
+     SEMI?
  ;
 
 constraint_node_iri_expr

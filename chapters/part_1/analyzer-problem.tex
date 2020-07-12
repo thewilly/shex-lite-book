@@ -1,8 +1,8 @@
-\chapter{Analysis of Existing Sintactic and Semantic Analizers}
+\chapter{Analysis of Existing Syntactic and Semantic Analysers}
 \label{ch:current-analyzers-analysis}
 
 In the Related Work (\cref{ch:retalted-work}) some ShEx tools were explained. This section will detail more
-those tools that provide any kind error and warning detection and emition. After, we will detail the points
+those tools that provide any kind error and warning detection and reporting. After, we will detail the points
 that we think can be enhanced.
 
 Before start the analysis we must define a methodology in order to be able to make an even analysis for all
@@ -14,11 +14,11 @@ However, this specification does not cover all possible cases, in particular it 
 to the choice of the specific implementation.
 
 Therefore, as regards this evaluation, when a semantic option not contemplated by the specification is proposed,
-the option that favors the security of the language will be chosen. For example. If the specification did not say
+the option that favours the security of the language will be chosen. For example. If the specification did not say
 anything about whether a variable can be redefined and we had to take an option, we will always choose not, so that
 the language is as safe as possible and does not lead to errors.
 
-The unique sintactic restrictions applied is:
+The unique syntactic restrictions applied is:
 \begin{itemize}
   \item In the last triple constraint of a set expression the trailing semicolon it is optional but recommended.
 \end{itemize}
@@ -43,17 +43,17 @@ shows some examples of this errors.
 \begin{figure}
     \includegraphics[width=\textwidth]{images/shexc-micro-bad-examples.pdf}
     \centering
-    \caption[Examples of ShEx micro Compact Syntax code containing sintactic and semantic errors or warnings]{Examples of ShEx micro Compact Syntax
+    \caption[Examples of ShEx micro Compact Syntax code containing syntactic and semantic errors or warnings]{Examples of ShEx micro Compact Syntax
     code containing errors.}
     \label{fig:shexc-micro-errors}
   \end{figure}
 
-\section{Sintactic Analyzers}
-According to \cite{floyd1963syntactic} we consider a Sintactic Analyzer a piece of software capable of parse, generate
-a parse tree and detect and emmit sintactic warnings and errors.
+\section{Syntactic Analysers}
+According to \cite{floyd1963syntactic} we consider a Syntactic Analyzer a piece of software capable of parse, generate
+a parse tree and detect and retorting syntactic warnings and errors.
 
 Therefore in this category we would include \textbf{Shaclex}, \textbf{ShEx.js}, \textbf{YASHE} and \textbf{VS Code Plugin}.
-\cref{tb:sintactic-errors} shows a comparison between the analyzed tools.
+\cref{tb:sintactic-errors} shows a comparison between the analysed tools.
 
 Some comments to be made about the results obtained are that although we get an error for syntactic errors,
 the quality of the error is more or less always the same. For example for the fragment \texttt{prefixx xsd: <http://example/>}
@@ -61,12 +61,12 @@ where we introduced an error at the keywork \texttt{prefix} by adding an extra \
 
 To our point of view this error message nor is not correct because it does not provide the user enough information to fix the schema.
 
-Then also it is important to remark that during this analysis we encounter other sintactic problems that where not detected by tools like Shaclex,
-an exmaple is that properties like \texttt{schema:rdf@:name} \textit{(which is not a valid IRI)} are accepted without errors.
+Then also it is important to remark that during this analysis we encounter other syntactic problems that where not detected by tools like Shaclex,
+an example is that properties like \texttt{schema:rdf@:name} \textit{(which is not a valid IRI)} are accepted without errors.
 
 \begin{table}
   \centering
-  \caption{Detection of the different sintactic errors by the current existing ShEx tools that sintactically analyze the
+  \caption{Detection of the different syntactic errors by the current existing ShEx tools that syntactically analyse the
   shape expressions.}
   \label{tb:sintactic-errors}
   \resizebox{\textwidth}{!}{\begin{tabular}{lcccccccc} 
@@ -83,15 +83,15 @@ an exmaple is that properties like \texttt{schema:rdf@:name} \textit{(which is n
     \end{tabular}}
 \end{table}
 
-\section{Semantic Analyzers}
-As Semantic Analyzers we will only consider those tools that validate the semantics of the language, in this section we
+\section{Semantic Analysers}
+As Semantic Analysers we will only consider those tools that validate the semantics of the language, in this section we
 include the validation of references like prefixes and shapes. The tools that claim to support this validations are
-\textbf{Shaclex}, \textbf{ShEx.js}, and \textbf{YASHE}. \cref{tb:semantic-errors} shows a comparison between the analyzed tools.
+\textbf{Shaclex}, \textbf{ShEx.js}, and \textbf{YASHE}. \cref{tb:semantic-errors} shows a comparison between the analysed tools.
 
 From the obtained results we have to point that most of the tools opted for an open policy when talking about language semantics. From our
-point of view this have its advantages and its drawbaks. But this only affects to the override policy. All of the tools should
+point of view this have its advantages and its drawbacks. But this only affects to the override policy. All of the tools should
 implement the non existing references validation and most of them only focus on prefixes definition with the exception of
-YASHE which does the checking of the shape reference but the error message sometimes is not completly accurate.
+YASHE which does the checking of the shape reference but the error message sometimes is not completely accurate.
 
 It it also remarkable that none of the tools performs a deeper analysis so there is no detection of unused resources, therefore
 no warnings are generated by none of the existing tools.
@@ -117,27 +117,27 @@ no warnings are generated by none of the existing tools.
 \section{Possible Enhancements}\label{sec:anal-enhacements}
 Previous sections show the current state of the existing tools, their capabilities and their lacks.
 With all that information we propose a list of enhancements that can be done to improve the error and warning detection
-As seen in previus sections there's work that can be done to improve the existing ecosystem of tools. We have identified the following aspects
+As seen in previous sections there's work that can be done to improve the existing ecosystem of tools. We have identified the following aspects
 that will benefit end users:
 
 \begin{enumerate}
-    \item \textbf{Enhancement of error messages \cite{heeren2005top}.} Existing error messages, originated both by sintactic or semantic errors do not offer information about
+    \item \textbf{Enhancement of error messages \cite{heeren2005top}.} Existing error messages, originated both by syntactic or semantic errors do not offer information about
     the exact place that originates the error nor a processed description nor possible solutions.
 
-    \item \textbf{Creation of a new type of error messages with lower importance called warnings.} Currently systems do not analyze if declared resources are
-    used and therefore there is no need to generate warnings. We propose to not only fully analyze the resources to detect non-used ones but also the creation
+    \item \textbf{Creation of a new type of error messages with lower importance called warnings.} Currently systems do not analyse if declared resources are
+    used and therefore there is no need to generate warnings. We propose to not only fully analyse the resources to detect non-used ones but also the creation
     or error messages with lower importance like warnings that can be used to offer more information to the end user.
 
-    \item \textbf{Detection of override definitions.} Most of the existing tools prefer not to detect when a definition is being overriden, we propose to detect those
+    \item \textbf{Detection of override definitions.} Most of the existing tools prefer not to detect when a definition is being overridden, we propose to detect those
     situations and treat definitions as fixed values.
 
-    \item \textbf{Detection of undefined references.} Some tools detect some broken references, we propose to enchace this situation and take that behaviour to
+    \item \textbf{Detection of undefined references.} Some tools detect some broken references, we propose to enchase this situation and take that behaviour to
     other elements like shape references.
 
     \item \textbf{Detection of unused resources.} Related to the second point sometimes new users copy and paste old code which ends with lots of unused code,
     we propose a system that detects those situations and suggest to remove that unused code.
 
-    \item \textbf{Detection of multiple errors / warnings at once.} Most of the current analyzers only provide information about the first error they find,
+    \item \textbf{Detection of multiple errors / warnings at once.} Most of the current analysers only provide information about the first error they find,
     this means that if we have a scheme with multiple errors or warnings, only the first one will be shown to us and we will not be able to see the next one
     until we solve the previous one. 
 \end{enumerate}

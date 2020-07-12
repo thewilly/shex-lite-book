@@ -1,6 +1,6 @@
-\chapter{Proposed Sintactic and Semantic Analyzer}
+\chapter{Proposed Syntactic and Semantic Analyzer}
 \label{ch:proposed-sin-sema-anal}
-After analyzing the existing tools, we can see that different
+After analysing the existing tools, we can see that different
 aspects of existing technology can be improved, such as those
 discussed in \cref{sec:anal-enhacements}. In this chapter we
 model a proposal by means of software engineering techniques.
@@ -13,7 +13,7 @@ the requirements have been extracted, we will proceed to
 design the solution using diagrams.
 
 We know that the system will be composed of at least a lexical
-analyzer, a syntactic analyzer, a semantic analyzer and some
+analyser, a syntactic analyser, a semantic analyser and some
 type of message manager to handle errors and warnings.
 
 \section{Error Handler}
@@ -25,7 +25,7 @@ these use cases in the error / warning management system.
 \begin{figure}[h!]
     \includegraphics[scale=0.6]{images/err-hand-use-case.pdf}
     \centering
-    \caption[Error hanlder use cases]{Error hanlder use cases.}
+    \caption[Error handler use cases]{Error handler use cases.}
     \label{fig:err-hand-use-case}
 \end{figure}
 
@@ -35,7 +35,7 @@ extract the following functional requirements.
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/err-hand-reqf.pdf}
     \centering
-    \caption[Error hanlder functional requirements]{Error hanlder functional requirements.}
+    \caption[Error handler functional requirements]{Error handler functional requirements.}
     \label{fig:err-hand-reqf}
 \end{figure}
 
@@ -44,30 +44,30 @@ From the use cases we can also extract the following interface requirements.
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/err-hand-reqnf.pdf}
     \centering
-    \caption[Error hanlder non functional requirements]{Error hanlder non functional requirements.}
+    \caption[Error handler non functional requirements]{Error handler non functional requirements.}
     \label{fig:err-hand-reqnf}
 \end{figure}
 
-For the previous requirements we propose the following modelation for the error management system (\cref{fig:err-hand-diag}).
+For the previous requirements we propose the following diagram for the error management system (\cref{fig:err-hand-diag}).
 
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/err-hand-diagram.pdf}
     \centering
-    \caption[Error hanlder component and class diagrams]{Error hanlder component and class diagrams.}
+    \caption[Error handler component and class diagrams]{Error handler component and class diagrams.}
     \label{fig:err-hand-diag}
 \end{figure}
 
 
 \section{Lexical Analyzer}
-The lexical analyzer is necessary to subsequently carry out syntactic and semantic analysis.
+The lexical analyser is necessary to subsequently carry out syntactic and semantic analysis.
 And therefore, although it is not contemplated as an improvement in
 the previous chapter, we do have to include it in our proposed system. The following diagram
-shows the expected use cases of a lexical analyzer in our context.
+shows the expected use cases of a lexical analyser in our context.
 
 \begin{figure}[h!]
     \includegraphics[scale=0.6]{images/lex-use-case.pdf}
     \centering
-    \caption[Lexical analyzer use cases]{Lexical analyzer use cases.}
+    \caption[Lexical analyser use cases]{Lexical analyser use cases.}
     \label{fig:lex-use-case}
 \end{figure}
 
@@ -77,7 +77,7 @@ extract the following functional requirements.
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/lex-reqf.pdf}
     \centering
-    \caption[Lexical analyzer functional requirements]{Lexical analyzer functional requirements.}
+    \caption[Lexical analyser functional requirements]{Lexical analyser functional requirements.}
     \label{fig:lex-reqf}
 \end{figure}
 
@@ -86,29 +86,29 @@ From the use cases we can also extract the following interface requirements.
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/lex-reqnf.pdf}
     \centering
-    \caption[Lexical analyzer non functional requirements]{Lexical analyzer non functional requirements.}
+    \caption[Lexical analyser non functional requirements]{Lexical analyser non functional requirements.}
     \label{fig:lex-reqnf}
 \end{figure}
 
-For the previous requirements we propose the following modelation for the lexical analyzer.
+For the previous requirements we propose the following model for the lexical analyser.
 
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/lex-diagram.pdf}
     \centering
-    \caption[Lexical analyzer component and class diagrams]{Lexical analyzer component and class diagrams.}
+    \caption[Lexical analyser component and class diagrams]{Lexical analyser component and class diagrams.}
     \label{fig:lex-diag}
 \end{figure}
 
-\section{Sintactic Analyzer}
+\section{Syntactic Analyzer}
 The parser may not be so necessary if we are looking to improve existing systems, but it is
 necessary to carry out the next step, semantic analysis. To others
 in this step you can also propose some improvement, although less. The following diagram
-shows the expected use cases for a system that wants to implement a sintactic validator.
+shows the expected use cases for a system that wants to implement a syntactic validator.
 
 \begin{figure}[h!]
     \includegraphics[scale=0.6]{images/sin-use-case.pdf}
     \centering
-    \caption[Sintactic analyzer use cases]{Sintactic analyzer use cases.}
+    \caption[Syntactic analyser use cases]{Syntactic analyser use cases.}
     \label{fig:sin-use-case}
 \end{figure}
 
@@ -118,7 +118,7 @@ extract the following functional requirements.
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/sin-reqf.pdf}
     \centering
-    \caption[Sintactic analyzer functional requirements]{Sintactic analyzer functional requirements.}
+    \caption[Syntactic analyser functional requirements]{Syntactic analyser functional requirements.}
     \label{fig:sin-reqf}
 \end{figure}
 
@@ -127,21 +127,21 @@ From the use cases we can also extract the following interface requirements.
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/sin-reqnf.pdf}
     \centering
-    \caption[Sintactic analyzer non functional requirements]{Sintactic analyzer non functional requirements.}
+    \caption[Syntactic analyser non functional requirements]{Syntactic analyser non functional requirements.}
     \label{fig:sin-reqnf}
 \end{figure}
 
-For the previous requirements we propose the following modelation for the sintactic analyzer.
+For the previous requirements we propose the following modulation for the syntactic analyser.
 
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/sin-diagram.pdf}
     \centering
-    \caption[Sintactic analyzer component and class diagrams]{Sintactic analyzer component and class diagrams.}
+    \caption[Syntactic analyser component and class diagrams]{Syntactic analyser component and class diagrams.}
     \label{fig:sin-diag}
 \end{figure}
 
 \section{Semantic Analyzer}
-The semantic analyzer is key in our architecture since most of the improvements
+The semantic analyser is key in our architecture since most of the improvements
 that have to do with finding new types of errors can be identified through semantic
 validations. The following diagram shows the expected use cases for a system that
 wants to implement a semantic validator to solve the above problems.
@@ -149,7 +149,7 @@ wants to implement a semantic validator to solve the above problems.
 \begin{figure}[h!]
     \includegraphics[scale=0.6]{images/sema-use-case.pdf}
     \centering
-    \caption[Semantic analyzer use cases]{Semantic analyzer use cases.}
+    \caption[Semantic analyser use cases]{Semantic analyser use cases.}
     \label{fig:sema-use-case}
 \end{figure}
 
@@ -159,7 +159,7 @@ extract the following functional requirements.
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/sema-reqf.pdf}
     \centering
-    \caption[Semantic analyzer functional requirements]{Semantic analyzer functional requirements.}
+    \caption[Semantic analyser functional requirements]{Semantic analyser functional requirements.}
     \label{fig:sema-reqf}
 \end{figure}
 
@@ -168,24 +168,24 @@ From the use cases we can also extract the following interface requirements.
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/sema-reqnf.pdf}
     \centering
-    \caption[Semantic analyzer non functional requirements]{Semantic analyzer non functional requirements.}
+    \caption[Semantic analyser non functional requirements]{Semantic analyser non functional requirements.}
     \label{fig:sema-reqnf}
 \end{figure}
 
-For the previous requirements we propose the following modelation for the semantic analyzer.
+For the previous requirements we propose the following model for the semantic analyser.
 
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/sema-diagram.pdf}
     \centering
-    \caption[Semantic analyzer component and class diagrams]{Semantic analyzer component and class diagrams.}
+    \caption[Semantic analyser component and class diagrams]{Semantic analyser component and class diagrams.}
     \label{fig:sema-diag}
 \end{figure}
 
 \section{Full System Diagram}
-After analyzing and designing each component ahopra we offer a
+After analysing and designing each component now we offer a
 complete view of the entire integrated system. In addition
 you can see that a new component appears, the symbol table.
-This component can be any type of structure that fulfills the
+This component can be any type of structure that fulfils the
 expected basic functions of a symbol table.
 
 \begin{figure}[h!]
