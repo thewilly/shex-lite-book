@@ -15,7 +15,7 @@ shows the different components of this analyser.
 \begin{figure}
     \includegraphics[width=\textwidth]{images/sin-sem-structure.pdf}
     \centering
-    \caption[Syntactic and Semantic Analyzer structure]{Syntactic and Semantic Analyzer structure.}
+    \caption[Syntactic and Semantic Analyser structure]{Syntactic and Semantic Analyser structure.}
     \label{fig:shex-lite-sema}
 \end{figure}
 
@@ -42,20 +42,21 @@ For example, in the tree in \cref{fig:shex-lite-st} we could implement a validat
 of a shape definition \textit{(node 16)} did not have the semicolon termination keyword \textit{(node 19)}, it would generate a
 warning message to the user.
 
-\subsection{Syntactic Analyzer}
+\subsection{Syntactic Analyser}
 The Syntactic analyser is in charge of traversing the syntactic tree in order to search for possible patterns that the user has to
 be informed about. If none were found it would be understood that the syntactic tree is well formed and it will transform the Syntax Tree
 \cref{fig:shex-lite-st} into an Abstract Syntax Tree \cref{fig:shex-lite-sema-anal} \textit{(without the green and red relations)}.
 
-For this, each node within our syntactic tree is aware of the context in which it is. Therefore we can ask questions to the nodes,
-such as to a prefix definition \textit{(\cref{fig:shex-lite-st} $n_2$)}, do you have a label? \textit{(No)} or who is the node
-that defines your iri? \textit{(node $n_5$)}. With questions like these, the syntactic tree can be analysed for patterns that
+For this, each node within our syntactic tree is aware of the context in which it is. Therefore, it is possible to access contextual
+information of a given node. For instance, we can access to to a prefix definition (\cref{fig:shex-lite-st} $n_2$)) contextual
+information to check if it contains a label. It does not contain one. Or access the information of (node $n_5$) to get the
+node that defines its iri. Would be (node $n_5$). With questions like these, the syntactic tree can be analysed for patterns that
 represent warnings or errors.
 
-\subsection{Semantic Analyzer}
+\subsection{Semantic Analyser}
 The semantic analyser is responsible of building all the possible relations between the AST nodes, analyse and check that
 all those relations that must exist indeed exist. For this porpoise as just seen we reduce our Syntax Tree to an
-Abstract Syntax Tree. \cref{fig:shex-lite-sema-anal} Shows a the resulting AST after the corresponding analysis and
+Abstract Syntax Tree. \cref{fig:shex-lite-sema-anal} Shows the resulting AST after the corresponding analysis and
 transformations, we call this graph the \textit{Intermediate Language}.
 
 \begin{figure}
@@ -110,7 +111,7 @@ so that when an error is detected in the tree we can identify not only the cause
 affected nodes and therefore offer a content-rich error message. Regarding our implementation, for each node we save the following
 context information:
 \begin{itemize}
-    \item \textbf{Source file path.} Represents the path to the source file where the node was generated.
+    \item \textbf{Source file path.} It represents the path to the source file where the node was generated.
     \item \textbf{Line.} The line in the source file where the node was generated.
     \item \textbf{Column.} The column in the source file where the node was generated.
     \item \textbf{Token interval.} The interval \textit{(start, end position)} of tokens from the source file that generated the node.
@@ -120,7 +121,7 @@ context information:
 \end{itemize}
 
 \cref{fig:shex-lite-node-info} represents this information inside each node. Our default implementation only looks for the
-following extra syntactic pattern to the other implementations seen in \cref{ch:current-analyzers-analysis}: shape expressions whose last
+following extra syntactic pattern to the other implementations seen in \cref{ch:current-analysers-analysis}: shape expressions whose last
 triple constraint does not contain the semicolon ending character. In case we find this pattern, we inform the event manager
 that a notice has been found that must be passed on to the user, \cref{fig:sin-err-example}.
 
@@ -168,12 +169,22 @@ direction to indicate that a definition is being referenced by a node. The trans
 
 \subsubsection{Tree relations analysis}
 For this purpose, the semantic analyser defines the visitor pattern on the nodes of the abstract syntax tree so that each of the different
-analysis is done with a tree visiting implementation. Some of the 
+analysis is done with a tree visiting implementation.
+
+\section{Tests}
+Different types of tests were used to validate the implementation. Of course, unitary, integration, regression.
+However, the most important in here are the dynamic test cases. In this way it was possible to test the
+system just by describing test cases using files. These files represent the input of the test system. And according
+to the file name, it is automatically classified as positive or negative test. A battery of tests defined by the
+people who carried out the ShEx specification have been used to tests the system. In our case with 45 different test
+scenarios. In addition, to ensure compatibility with all platforms, continuous integration with GitHub has been made
+over Windows, Linux and Mac OS. A coverage of the 70\% of the code is achieved.
+See \cref{ch:github} to see the CI configuration.
 
 \section{Syntactic and Semantic Error and Warnings Detected}
 With the solution proposed in the previous section, our system is capable of detecting and reporting multiple syntactic
 and / or semantic errors. In this section we will analyse the rules that generate each type of event and the different
-error messages produced for each of them.
+error messages produced for each one of them.
 
 \subsection{Not trailing semicolon at last triple constraint}
 To detect when the semicolon is missing in the last triple constraint of a shape definition, the rule used is very simple.

@@ -45,12 +45,13 @@ $Proy_{tg}lst$ operation.
 \end{figure}
 
 \section{Translator modelling}
-This section focuses on modelling through use cases and requirements
-a system that implements the transformation function described in the
-previous section.
+At this point we already have an abstraction of our system ready.
+We know that you must implement the transformation function previously explained.
+Now we will lower our abstraction one level.
+For this we will model our system by means of software engineering techniques
+such as use cases, requirements or class diagrams. First, we will use the use case
+method to find the necessary functionality of our system.
 
-The following use case diagram models the different scenarios and
-behaviour that the translation the system should be able to support.
 \begin{figure}[h!]
     \includegraphics[scale=0.8]{images/trans-use-case.pdf}
     \centering
@@ -58,7 +59,22 @@ behaviour that the translation the system should be able to support.
     \label{fig:trans-use-case}
 \end{figure}
 
-From the previous use cases we can extract some functional and non functional requirements.
+\cref{fig:trans-use-case} shows us that in our system we will, of course, have the functionality to
+translate ShEx schemas to domain models based on plain objects.
+But we can also see that the entry may be wrong.
+This implies that there must be some kind of input validation.
+In addition, an error management system is also necessary.
+\cref{fig:trans-flow} illustrates a high level view of the flowchart that the translator follows.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{images/diagrama-flujo-traductor.pdf}
+    \centering
+    \caption[Translator high level flowchart]{Translator high level flowchart.}
+    \label{fig:trans-flow}
+\end{figure}
+
+Also from the developed use cases we can extract the list of functional and
+non-functional requirements (external interfaces) that our system must support.
 
 \begin{figure}[h!]
     \includegraphics[width=\textwidth]{images/trans-reqf.pdf}

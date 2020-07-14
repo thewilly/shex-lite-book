@@ -31,13 +31,12 @@ Recently the Dublin Core Team\footnote{\url{https://dublincore.org/}} is working
 specification that allows to define Shape Expressions in tabular formats. For this specification
 they propose a simplification of the Shape Expressions JSON syntax that allows to define an
 schema as a set of simple triple constraints. This specification is not official and has
-not been validated yet but it is very important for our work as we will also work in a
+not been validated yet but it is very important for our work as we will also work with a similar
 simplification of a syntax of ShEx.
 
 \bigskip
 
-And to the best of our knowledge and after the research process carried out for this
-project no other language based on a subset of Shape Expressions has been designed nor implemented yet.
+And to the best of our knowledge no other language based on a subset of Shape Expressions has been designed nor implemented yet.
 
 % S E C T I O N   S H E X   E C O S Y S T E M
 
@@ -52,17 +51,15 @@ those that had the biggest impact in the community.
 Since the beginning of ShEx and SHACL as languages the RDF community started to build tools that take as
 input the schemas defined and validate graphs.
 
-This kind of tools can benefit from SHEx-Lite from the point of view that new functionalities can be easily
-implemented and tested in the lite version of the language before even touching the stable releases of both
-tools. In the case of ShEx this is more obvious as ShEx-Lite and ShEx are both implemented in Scala and if
-good design principles are used functionalities can be just migrated and expanded for the rest of the language.
+This tools can also benefit from the methods and technologies developed in this dissertation as they need
+to previously analyse the schemas before even try to validate RDF data with them.
 
 The most important validators are:
 
 \subsubsection{Shaclex}
 According to the Shaclex\footnote{\url{https://github.com/weso/shaclex}} official website it is an Open
 Source Scala pure functional implementation of an RDF Validator that supports both Shape Expressions and
-SHACL. It was initially developed by Dr. Jose Emilio Labra Gayo and is being maintained by an active
+SHACL. It was initially developed by Jose Emilio Labra Gayo and is being maintained by an active
 community on GitHub. It is used by different projects around the globe and its goal is to validate RDF
 graphs against schemas defined in Shape Expression or in SHACL.
 
@@ -79,7 +76,8 @@ serialization of the AST in this implementation as the abstract syntax of ShEx.
 In order to facilitate the task of writing schemas some engineers decide to implement specific IDEs for the
 Shape Expressions Language.
 
-This tools will completely benefit from ShEx-Lite and there are currently collaborations in process. At the
+This tools can benefit from ShEx-Lite and there are currently collaborations in process, such as the integration
+of the unused resources detection in YASHE. At the
 time they work with Shaclex, which is structured as a conventional compiler, but with the API architecture
 of ShEx-Lite IDEs can access directly to the syntactic and semantic modules so features like advances colouring
 syntax or incremental compilation are available.
@@ -88,7 +86,7 @@ syntax or incremental compilation are available.
 YASHE\footnote{\url{https://github.com/weso/YASHE}} (Yet Another ShEx Editor), is a Shape Expressions IDE
 which started as a fork ofYASQE(which is based on SPARQL). This tool performs lexical and syntactic analysis
 of the content of the editor, thus offering the user a real-time syntactic error detector. It has features
-like: syntax highlighting, visual aid elements (tooltips) and autocomplete mechanisms. In addition, it offers
+such as syntax highlighting, visual aid elements (tooltips) and autocomplete mechanisms. In addition, it offers
 a simple way of integrating into other projects.
 
 \subsubsection{Protégé}
@@ -108,9 +106,8 @@ Other researches focused their efforts in to inferring schemas to existing data 
 evolved from ShEx in order to transform existing data.
 
 \subsubsection{Shexer}
-Shexer\footnote{\url{https://github.com/DaniFdezAlvarez/shexer}} is a python library aimed to perform automatic
-automatic extraction of schemas in both ShEx and SHACL from an RDF input graph. That is if all the other tools
-take the schemas as the input and validate a graph with it, this tool takes a graph and from it it infers the
+Shexer\footnote{\url{https://github.com/DaniFdezAlvarez/shexer}} is a python library aimed to perform
+automatic extraction of schemas in ShEx from an RDF input graph. This tool takes a graph, and from it, it infers the
 schemas that it might contain. Its work is fully described in \cite{iovka-auto-shex-shacl, fernandez2016inference}.
 
 \subsubsection{ShExML}
@@ -121,9 +118,10 @@ The main idea behind this tool is written at \cite{shexml}.
 \bigskip
 
 An example of how this different tools can work together thanks to ShEx-Lite would be the following, illustrated
-at \cref{fig:shex-lite-shexer-integration}.
-Wikidata currently holds millions of registers that do not have any schema that validates them. And they need to
-make consumer that represents the data in to an object domain model. Without any tool this is just almost impossible,
+at \cref{fig:shex-lite-shexer-integration}. There we have Wikidata\footnote{\url{https://www.wikidata.org}} which
+is a free and open knowledge base that can be read and edited by both humans and machines.
+Wikidata, currently holds millions of registers that do not have any schema that validates them. And they need to
+make consumer applications that represents the data in to an object domain model. Without any tool this is just almost impossible,
 but this shexer you can infer the schemas to ShEx-Lite syntax and with the ShEx-Lite compiler you can automatically
 create the object domain model in your favourite OOL.
 

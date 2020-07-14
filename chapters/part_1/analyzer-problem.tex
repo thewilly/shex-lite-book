@@ -1,5 +1,5 @@
 \chapter{Analysis of Existing Syntactic and Semantic Analysers}
-\label{ch:current-analyzers-analysis}
+\label{ch:current-analysers-analysis}
 
 In the Related Work (\cref{ch:retalted-work}) some ShEx tools were explained. This section will detail more
 those tools that provide any kind error and warning detection and reporting. After, we will detail the points
@@ -14,11 +14,11 @@ However, this specification does not cover all possible cases, in particular it 
 to the choice of the specific implementation.
 
 Therefore, as regards this evaluation, when a semantic option not contemplated by the specification is proposed,
-the option that favours the security of the language will be chosen. For example. If the specification did not say
+the option that favours the security of the language will be chosen. For example. If the specification does not state
 anything about whether a variable can be redefined and we had to take an option, we will always choose not, so that
 the language is as safe as possible and does not lead to errors.
 
-The unique syntactic restrictions applied is:
+The unique syntactic restriction applied is:
 \begin{itemize}
   \item In the last triple constraint of a set expression the trailing semicolon it is optional but recommended.
 \end{itemize}
@@ -35,10 +35,9 @@ The semantic restrictions that have been applied are listed below.
 In addition, in this evaluation we will use different test cases for each system, specifically the test cases
 correspond to each element of the ShEx micro Compact grammar. Remember that the elements that this grammar has
 are: \textit{definition of prefixes}, \textit{definition of the base}, \textit{definition of the start shape} and
-\textit{definition of shapes}.
-To others within the previous elements you will also find references to prefixes, the base and other shapes.
+\textit{definition of shapes}. You can also find references to prefixes, the base and other shapes.
 Therefore we will test all these elements in their syntactic and semantic aspects. \cref{fig:shexc-micro-errors}
-shows some examples of this errors.
+shows some examples of these errors.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{images/shexc-micro-bad-examples.pdf}
@@ -49,7 +48,7 @@ shows some examples of this errors.
   \end{figure}
 
 \section{Syntactic Analysers}
-According to \cite{floyd1963syntactic} we consider a Syntactic Analyzer a piece of software capable of parse, generate
+According to \cite{floyd1963syntactic} we consider a Syntactic Analyser a piece of software capable of parse, generate
 a parse tree and detect and retorting syntactic warnings and errors.
 
 Therefore in this category we would include \textbf{Shaclex}, \textbf{ShEx.js}, \textbf{YASHE} and \textbf{VS Code Plugin}.
@@ -59,7 +58,7 @@ Some comments to be made about the results obtained are that although we get an 
 the quality of the error is more or less always the same. For example for the fragment \texttt{prefixx xsd: <http://example/>}
 where we introduced an error at the keywork \texttt{prefix} by adding an extra \texttt{x} the error obtained is: \texttt{This line is invalid. Expected: PNAME\_NS.}
 
-To our point of view this error message nor is not correct because it does not provide the user enough information to fix the schema.
+According to \cite{heeren2005top}, this error message nor can be improve as it does not provide the user enough information to fix the schema.
 
 Then also it is important to remark that during this analysis we encounter other syntactic problems that where not detected by tools like Shaclex,
 an example is that properties like \texttt{schema:rdf@:name} \textit{(which is not a valid IRI)} are accepted without errors.
@@ -73,7 +72,7 @@ an example is that properties like \texttt{schema:rdf@:name} \textit{(which is n
     \hline\hline
                    & \multicolumn{8}{c}{Sintactic Errors}                                                                                                                                                                                                                                                                                                                          \\ 
     \hline
-    Analyzers      & \multicolumn{1}{l}{Prefix Definition} & \multicolumn{1}{l}{Base Definition} & \multicolumn{1}{l}{Start Shape} & \multicolumn{1}{l}{Shape Definition} & \multicolumn{1}{l}{Prefix Reference} & \multicolumn{1}{l}{Base Reference} & \multicolumn{1}{l}{Shape Reference} & \begin{tabular}[c]{@{}c@{}}Recomends Semicolon\\Last Triple Constraint\end{tabular}  \\ 
+    Analysers      & \multicolumn{1}{l}{Prefix Definition} & \multicolumn{1}{l}{Base Definition} & \multicolumn{1}{l}{Start Shape} & \multicolumn{1}{l}{Shape Definition} & \multicolumn{1}{l}{Prefix Reference} & \multicolumn{1}{l}{Base Reference} & \multicolumn{1}{l}{Shape Reference} & \begin{tabular}[c]{@{}c@{}}Recomends Semicolon\\Last Triple Constraint\end{tabular}  \\ 
     \hline
     Shaclex        & Yes                                   & Yes                                 & Yes                             & Yes                                  & Not completly                        & Yes                                & Yes                                 & No                                                                                   \\
     ShEx.js        & Yes                                   & Yes                                 & Yes                             & Yes                                  & Yes                                  & Yes                                & Yes                                 & No                                                                                   \\
@@ -98,14 +97,14 @@ no warnings are generated by none of the existing tools.
 
 \begin{table}
   \centering
-  \caption{Detection of the different semantic errors by the current existing ShEx tools that semantically analyze the
+  \caption{Detection of the different semantic errors by the current existing ShEx tools that semantically analyse the
   shape expressions.}
   \label{tb:semantic-errors}
   \resizebox{\textwidth}{!}{\begin{tabular}{lccccccc} 
     \hline\hline
                    & \multicolumn{7}{c}{Semantic Errors}                                                                                                                                                                                                                                                                                                                                                 \\ 
     \hline
-    Analyzers      & \multicolumn{1}{l}{Prefix Override} & \multicolumn{1}{l}{Base Override} & \multicolumn{1}{l}{Start Shape Override} & \multicolumn{1}{l}{Shape Override} & \begin{tabular}[c]{@{}c@{}}Non Existing\\Prefix Reference \end{tabular} & \begin{tabular}[c]{@{}c@{}}Non Existing\\Base Reference \end{tabular} & \begin{tabular}[c]{@{}c@{}}Non Existing\\Shape Reference \end{tabular}  \\ 
+    Analysers      & \multicolumn{1}{l}{Prefix Override} & \multicolumn{1}{l}{Base Override} & \multicolumn{1}{l}{Start Shape Override} & \multicolumn{1}{l}{Shape Override} & \begin{tabular}[c]{@{}c@{}}Non Existing\\Prefix Reference \end{tabular} & \begin{tabular}[c]{@{}c@{}}Non Existing\\Base Reference \end{tabular} & \begin{tabular}[c]{@{}c@{}}Non Existing\\Shape Reference \end{tabular}  \\ 
     \hline
     Shaclex        & No                                  & No                                & No                                       & No                                 & Yes                                                                     & -                                                                     & No                                                                      \\
     ShEx.js        & No                                  & No                                & No                                       & No                                 & Yes                                                                     & -                                                                     & No                                                                      \\

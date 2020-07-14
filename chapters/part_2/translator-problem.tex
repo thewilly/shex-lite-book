@@ -3,7 +3,7 @@
 
 The ODMTP \textit{(Object Domain Model Translation Problem)}, when talking about
 Shape Expressions, is the aim to transform existing schemas, that already represent
-domain models, in to object domain models. Or what it is the same, translate the ShEx
+domain models, into object domain models. I.E, translate the ShEx
 schemas to objects coded in some Object Oriented Language. \cref{fig:shex-translate-small}
 represents this aim. The problem is to convert the \textit{Source} in to the \textit{Target}
 ($shex \rightarrow object\ oriented\ language$).
@@ -40,7 +40,7 @@ This problem, with the previous example \cref{fig:shex-translate-small}, may see
 before proposing a solution, we need to explore if everything that can be expressed with ShEx can be
 expressed in object-oriented languages.
 
-To answer this question, we will reduce our problem by using the micro ShEx syntax and PO \textit{(Plain Objects)}
+To answer this question, we will reduce our problem by using the micro ShEx syntax and Plain Objects \textit{(PO)}
 \cite{fowler1997analysis} as a generalization of all the programming languages that support the object orientated
 paradigm. Therefore our study will focus on finding out if we can express in plain objects everything we can express
 in the ShEx micro syntax. \cref{eq:expressivity-question} illustrates this question where $e(x)$ measures the
@@ -59,13 +59,13 @@ compare them.
 To explore the expressiveness of ShEx micro Compact Syntax we have to look
 at the abstract grammar (\cref{fig:shex-micro-abstract-grammar}) of the syntax.
 In it we will find what we can and what we cannot express. For example we can
-deduce that an schema is a shet of shapes where each is defined as an identifier
+deduce that an schema is a set of shapes where each is defined as an identifier
 and a set of triple expressions. \cref{fig:prop-def-shape-diagram} shows an example
 of a shape expression coded on its micro compact syntax that defines two properties
 for the object \texttt{:Preson}. In that shape expression we can see that we have a
 property that represents the name with type string and the default cardinality \textit{(1)}.
 And a second property \texttt{knows} whose type is a reference to another person
-and has multiple cardinality so it represents a list of people you know.
+and has $0...*$ cardinality so it represents a list of people you know.
 
 However, only with the grammar it would be very difficult
 for us to compare with other expressiveness. For this purpose we will obtain the formalization
@@ -160,7 +160,7 @@ In order to compare the expressiveness of plain objects with other systems, we w
 formalization based on their structure and content. Let $N$ be the set of all possible variable
 identificators in a programing language and $T_{pl}$ the set of all possible types in a programming
 language. Then a type annotated property is defined as
-\begin{equation}
+\begin{equation}\label{eq:plain-object}
 (n,t_{pl}) \in N \times T_{pl},
 \end{equation}
 where $n$ is the identifier of the property and $t_{pl}$ the specific programing language type. That implies that a plain object
@@ -173,10 +173,10 @@ M = \{ c \mid c \subseteq N \times T_{pl} \}.
 \end{equation}
 is a set of plain objects. Therefore, $e(plain\ objects) = N \times T_{pl} $.
 
-\subsection{Plain Objects Language Expressivity Dependance}
+\subsection{Plain Objects Language Expressivity Dependence}
 In \cref{fig:person-codings} we can see that all of three languages use similar types to represent the Person model. But with
 just one example we cannot generalize that the language does not affect the expressivity of the plain objects. In order to
-test that condition and prove that the language affects or doesn't affect the expressivity of plain objects we will need first
+test that condition and prove that the language affects or does not affect the expressivity of plain objects we will need first
 to find two \textit{type-independent languages}.
 
 \begin{definition}[Type-independent languages]
@@ -186,19 +186,19 @@ to find two \textit{type-independent languages}.
 
 For example, lets take Java \textit{$L_1$} and Rust \textit{$L_2$}, examples \textit{(a)} and \textit{(c)} from \cref{fig:person-codings}.
 Rust contains the type $Either<A,B>$, this type allows the type $A$ or $B$ and when accessed is not an $Either$ is either $A$ or $B$. In
-Java there is no $Either$ type, and someone can say that we could achive a similar type by using inheritance and classes composition. But
+Java there is no $Either$ type, and someone can say that we could achieve a similar type by using inheritance and classes composition. But
 at the end when accessed the type would be the type of the upper class. \textbf{Therefore Java and Rust are type-independent languages}.
 
-Now in order to see if the expressivity depends on the types of a language let's assing values to Java and Rust by using the same
-$Either<A,B>$ type. As can be see in \cref{fig:java-rust-comparison} Java does not allow to express the same as Rust is expressing
-in this example. And therefore we can conclude that the expresivity of plain object is stronggly related to the build-in types that
+Now in order to see if the expressivity depends on the types of a language let's assign values to Java and Rust by using the same
+$Either<A,B>$ type. As can be see in \cref{fig:java-rust-comparison} Java does not allow to express the same as we are expressing in Rust
+in this example. And therefore, we can conclude that the expressivity of plain object is strongly related to the build-in types that
 the programming language in which they are coded provides.
 
 \begin{center}
 	\noindent\begin{minipage}[t]{.4\textwidth}
         \begin{lstlisting}[language=Java,frame=topline,numbers=left,title=\scriptsize{Person Rust Struct},
             basicstyle=\ttfamily\scriptsize]{a}
-stuct Person {
+struct Person {
     name: String,
     knows: List<Person>,
     owningPet: Either<Dog,Cat>,
@@ -228,10 +228,10 @@ public class Person {
 
 \subsection{Plain Objects Expressivity Generalization}
 In order to obtain a generalization of the plain objects represented by means of object-oriented programming languages,
-we will base ourselves on \cref{eq:plain-object} where we defined the composition of a flat object, in this way the
-generalization would be as indicated in \cref{fig:po-generalization}. As can be seen this gneralization is not complete
-as it does not include the production for the \texttt{type}. Thi is because we have not generalized the type system of the
-object oriented programing languages yet.
+we will base ourselves on \cref{eq:plain-object} where we defined the composition of a plain object, in this way the
+generalization would be as indicated in \cref{fig:po-generalization}. As can be seen this generalization is not complete
+as it does not include the production for the \texttt{type}. This is because we have not generalized the type system of the
+object oriented programming languages yet.
 
 \begin{figure}
     \begin{lstlisting}[numbers=left,basicstyle=\ttfamily\small]
@@ -241,9 +241,9 @@ object oriented programing languages yet.
     \label{fig:po-generalization}
 \end{figure}
 
-However and motivated not to over-extend the scope of this work instead of extracting a generalization for the possible types
-that can be used in each object-oriented programming language, we will try to create this abstraction projecting it on the
-most common types used by XML Schema (xsd) \cite{xmlschemasimpleelements}. The main reason is that in RDF, and therefore in ShEx, xsd is the most widely
+However, and motivated by not to over-extend the scope of this work, instead of extracting a generalization for all the possible types
+that can be used in each object-oriented programming language, we will try to create this abstraction projecting the
+most common types used by XML Schema (xsd) \cite{xmlschemasimpleelements}. The main reason, is that in RDF, and therefore in ShEx, xsd is the most widely
 used type system and the standard of w3c. This leads us to the generalization from \cref{fig:po-generalization-complete} where we re-use the
 \texttt{xsd} types and add the \texttt{ID} that actually represents compound types, that is types that are in fact plain objects.
 
@@ -261,14 +261,14 @@ used type system and the standard of w3c. This leads us to the generalization fr
 \section{Shape Expressions and Plain Objects Expressivity Comparison}
 
 Previous section cover the expressivity of Shape Expressions and Plain Objects.
-In this section we compare both expressivities and expose if both expresivities
+In this section we compare both expressivities and expose if both expressivities
 are compatible or not. \cref{eq:exp-shape} showed that the expressiveness of the
 schemes depends on $P \times T_{rdf} \times C$. Meanwhile \cref{eq:exp-m} showed
 that the expressivity of object domain models depends on $P \times T_{pl}$. In
 \cref{sec:poe} we restrict the types that a plain object property might have.
 Let $T_g$ be the set of all allowed types in a plain object $\{ Real, List_{T_g}, String, Boolean, Reference \}$.
 Then, $e(plain\ objects) = N \times T_g$. We will compare now if $P \times T_{rdf} \times C = N \times T_g$.
-For that purpose we will compare each space separetly to see if they represent the same.
+For that purpose we will compare each space separately to see if they represent the same.
 
 \begin{equation}\label{eq:restrict-spaces}
     \left.\begin{matrix}
@@ -282,7 +282,7 @@ For that purpose we will compare each space separetly to see if they represent t
 \end{equation}
 
 \begin{figure}
-    \includegraphics[scale=0.5]{images/shex-lite-mapping.pdf}
+    \includegraphics[scale=1]{images/shex-lite-mapping.pdf}
     \centering
     \caption[Mapping function from ShEx to Plain Object]{Mapping function from ShEx to Plain Object.}
     \label{fig:mapping-f}

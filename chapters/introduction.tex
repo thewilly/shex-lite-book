@@ -3,7 +3,7 @@
 
 This chapter covers the motivation, contributions and structure of the document.
 The main objective of this chapter, therefore, is that after reading it, the reader
-forms an idea about the motivations that have promoted this project, what is
+builds an idea about the motivations that have promoted this project, what is
 being worked on and the contributions emanating from it.
 
 % S E C T I O N   M O T I V A T I O N
@@ -11,12 +11,12 @@ being worked on and the contributions emanating from it.
 \section{Motivation}
 \label{sec:intro-motiv}
 
-Each day more and more devices generate data both automatically and manually, and also each day the development of
-application in different domains that are backed by databases and expose these data to the web becomes easier. The
+Each day, more and more devices generate data both automatically and manually, and also each day the development of
+applications in different domains that are backed by databases and expose these data to the web becomes easier. The
 amount and diversity of data produced clearly exceeds our capacity to consume it.
 
 To describe the data that is so large and complex that traditional data processing applications can’t handle the
-term big-data \cite{big-data,sagiroglu2013big} has emerged. Big data has been described by at least three words starting
+term Big Data \cite{big-data,sagiroglu2013big} has emerged. Big Data has been described by at least three words starting
 by V: volume, velocity, variety. Although volume and velocity are the most visible features, variety is a key concept
 which prevents data integration and generates lots of interoperability problems.
 
@@ -28,8 +28,9 @@ set of syntax rules, but also maintain extensibility through a separately define
 Ref.\url{https://en.wikipedia.org/wiki/Uniform_Resource_Identifier}} offered a solution to the data integration
 problem as RDF datasets produced by different means can seamlessly be integrated with other data.
 
-Also, and related to this, is the concept of Linked Data \cite{linked-data} that was proposed as a set of best
-practices to publish data on the Web. It was introduced by Tim Berners-Lee and was based on four main principles:
+Related to this, is the concept of Linked Data \cite{linked-data} that was proposed as a set of best
+practices to publish data on the Web. It was introduced by Tim Berners-Lee and was based on four main principles,
+as mentioned in \cite{linked-data}:
 
 \begin{itemize}
   \item Use URIs as names for things.
@@ -39,13 +40,13 @@ practices to publish data on the Web. It was introduced by Tim Berners-Lee and 
 \end{itemize}
 
 \begin{figure}
-    \includegraphics[scale=0.25]{images/5-star-steps.png}
+    \includegraphics[scale=0.5]{images/5-star-steps.png}
     \centering
 	\caption[The 5 star steps of Linked Data]{The 5 star steps of Linked Data.}
 	\label{fig:margin-5-star-steps}
 \end{figure}
 
-This four principles are called the 5 stars Linked Open Data Model, illustrated in \cref{fig:margin-5-star-steps}.
+Similar to this four principles is the 5 stars Linked Open Data Model, illustrated in \cref{fig:margin-5-star-steps}.
 RDF is mentioned in the third principle as one of the standards that provides useful information. The goal of this
 principles is that data is not only ready for humans to navigate through but also for other agents, like computers,
 that may automatically process that data.
@@ -63,7 +64,7 @@ Although RDF is a very flexible schema-less language, enterprise and industrial 
 validation before processing for several reasons like security, performance, etc.
 
 To solve that dilemma and as an alternative to expecting the data to have some structure without validation, Shape Expressions Language
-\textit{(ShEx)} was proposed as a human-readable and high-level open source language for RDF validation. Initially ShEx was proposed
+\textit{(ShEx)} was proposed as a human-readable and high-level open source language for RDF validation. Initially, ShEx was proposed
 as a human-readable syntax for OSLC Resource Shapes \cite{oslc-resource-shape} but ShEx grew very fast to embrace more
 complex user requirements coming from clinical and library use cases.
 
@@ -72,11 +73,12 @@ from OSLC Resource Shapes as well, evolved into both a private implementation an
 \textit{(Shapes Constraint Language)}, which was adopted by the W3C Data Shapes Working Group.
 
 From a user point of view the possibilities of ShEx are very large, from the smallest case to just validate a node with one property
-to a scientific domain case where we need to validate the human genome \textit{(a real use case of ShEx)}. A language with such a number
+to a scientific domain case where we need to validate the human genome\footnote{\url{https://github.com/geneontology/go-shapes}}. A language with such a number
 of possibilities requires from a strong syntactic and semantic validation and that leads us to our first goal.
 
 \begin{researchquestion}
-  How much the existing syntactic and semantic validation systems for shape expressions can be enhanced?
+  Determine how much the existing syntactic and semantic validation systems for shape expressions can be enhanced. And
+  if existing systems can be enhanced propose a prototype that implement those enhancements.
 \end{researchquestion}
 
 Secondly and very related to programming languages, if we take the PopularitY of Programming Language \textit{(PYPL)} Index\footnote{\url{http://pypl.github.io/PYPL.html}}
@@ -86,7 +88,8 @@ that ShEx has, it allows to model real world domains with schemas, and validate 
 to automatically transform shape expressions into object domain models coded in any language that supports the object oriented paradigm:
 
 \begin{researchquestion}
-  Till which point can we automatically translate existing shape expressions in to object domain models?
+  Determine till which point can we automatically translate existing shape expressions to object domain models. And
+  propose a prototype capable of translating Shape Expressions to object domain models.
 \end{researchquestion}
 
 If this were possible it would not only imply that you could automate the creation of application domain models but that you could link the domain model that an
@@ -96,7 +99,7 @@ application uses with a domain model defined through Shape Expressions that desc
 
 To give answers to the questions posed in this section, we will limit our scope to the micro grammar of Shape Expressions, defined in
 \footnote{\url{https://dcmi.github.io/dcap/shex_lite/micro-spec.html}}. This version is a strict subset of the complete ShEx grammar
-and therefore any conclusion we can draw from it can automatically be applied to the full grammar.
+and therefore any derived method or technology we can draw from it can automatically be applied to the full grammar.
 
 % S E C T I O N   C O N T R I B U T I O N S
 
@@ -114,11 +117,11 @@ These are the major contributions of this dissertation:
   of a custom analyser that performs both syntactic and semantic analysis so it produces human-friendly errors and warnings that users can
   use to fix their schemas.
 
-  \item Automatic translation of schemas in to object domain models in \texttt{Java} and \texttt{Python}. The proposed system
-  integrates an open back-end with build-in code translation from the validated schemas to domain models in object
-  oriented programming languages \textit{(OOPL)} \cite{oopl}.
+  \item Automatic translation of schemas into object domain models in \texttt{Java} and \texttt{Python}. The proposed system
+  integrates an open back-end with built-in code translation from the validated schemas to domain models in Object
+  Oriented Programming Languages \textit{(OOPL)} \cite{oopl}.
 
-  \item Evaluation of errors and warning generated of our proposed solution against existing tools. This comparison
+  \item Evaluation of errors and warnings generated of our proposed solution against existing tools. This comparison
   empirically shows the benefits and drawbacks of our proposed system.
 \end{enumerate}
 
@@ -134,7 +137,7 @@ The dissertation layout is as follows:
   Expressions and other related projects.
 	\item[\cref{ch:retalted-work}] Gives a basic theoretical background that it is needed to fully understand the concepts explained in the
   following chapters.
-  \item[\cref{ch:current-analyzers-analysis}] Analyses current syntactic and semantic analysis systems.
+  \item[\cref{ch:current-analysers-analysis}] Analyses current syntactic and semantic analysis systems.
   \item[\cref{ch:proposed-sin-sema-anal}] He proposes a system by means of software engineering techniques
   that tries to solve the problem posed in the previous chapter.
   \item[\cref{ch:proposed-implementation}] It proposes an implementation that meets the expectations of the previous chapter.

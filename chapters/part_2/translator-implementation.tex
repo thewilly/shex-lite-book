@@ -1,4 +1,4 @@
-\chapter{Proposed Translator}
+\chapter{Proposed Implementation}
 \label{ch:proposed-system}
 
 Our solution is based on a code translator. In the end, a translator is still a type of compiler \cref{fig:compiler-stages},
@@ -40,12 +40,12 @@ one for each language specific level of the plain objects.
 \begin{figure}
     \includegraphics[width=\textwidth]{images/class-diagra-cg.pdf}
     \centering
-	\caption[Class diagram example of the code generation visitors]{Class diagram example of the code generation visitors.}
+	\caption[Class diagram of the code generation visitors]{Class diagram of the code generation visitors.}
     \label{fig:class-diagram-cg}
 \end{figure}
 
 And as proof of concept of the structure proposed in the previous section, we implemented a system that starts from the one
-developed in \cref{sec:anal-implementation} and is capable of generating code from schematics, checking that they are valid.
+developed in \cref{sec:anal-implementation} and is capable of generating code from schemas, checking that they are valid.
 This solution follows structructure developed in this system and more precisely \cref{fig:class-diagram-cg}. Moreover this
 developed system offers a CLI tool (\cref{fig:menu-tool}). In this tool the users can define multiple options as \texttt{--java-pkg=STRING} which if
 present will trigger the java code generation and will generate the target object in the specified package.
@@ -53,6 +53,7 @@ present will trigger the java code generation and will generate the target objec
 For example, for the input \texttt{java -jar shexlc.jar --java-pkg=demo person.shexl} where the \texttt{person.shexl}
 file corresponds to the schema defined at \cref{fig:shex-translate-small} \texttt{ShEx-Lite} would generate a single java
 class with the code that appears at the \texttt{Person.java} file, also in \cref{fig:shex-translate-small}.
+This implemented system will be used for evaluating the proposed solution.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{images/shexlc-menu.PNG}
@@ -61,8 +62,13 @@ class with the code that appears at the \texttt{Person.java} file, also in \cref
     \label{fig:menu-tool}
 \end{figure}
 
-This system
-will be used for evaluating the proposed solution.
+\section{Tests}
+In order to validate the translator, it is no longer possible to rely on the tests previously
+defined by the ShEx specification. Therefore, synthetic tests have been designed for this purpose.
+These synthetic tests prove that each extreme case of the code generation system works. In addition,
+it is also proved that for each specific language of the code generation the type projection is correct.
+In addition, all these tests are run continuously on GitHub on Windows, Linux and Mac OS platforms.
+See \cref{ch:github} to see the CI configuration.
 
 \section{Generated Objects}
 In this section we will give real examples of use cases in which the proposed system has been used to generate objects,
@@ -71,7 +77,7 @@ in addition we will study the objects in order to estimate their quality.
 \subsection{Real (Hercules ASIO European Project)}
 In the framework of the European project Hercules ASIO, financed with FIVE MILLION FOUR HUNDRED SIXTY-TWO THOUSAND SIX HUNDRED
 euros, the system described is used to link two parts of the architecture, the ontological infrastructure and the semantic 
-infrastructure. The Hercules project tries to find a solution based on linked data to manage the research framework
+architecture. The Hercules project tries to find a solution based on linked data to manage the research framework
 in Spanish universities. Some examples of the objects generated in this project are \cref{fig:example-2} and \cref{fig:example-3}.
 
 \begin{center}
